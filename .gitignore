@@ -1,0 +1,9 @@
+build/
+resources/
+src/main/frontend-ui/bookstoreapp/nodejs/
+src/main/frontend-ui/bookstoreapp/npm/npm-v9.2.0/
+.gradle/
+/src/main/frontend-ui/bookstoreapp/build/
+/src/main/frontend-ui/bookstoreapp/node_modules/
+/src/main/frontend-ui/bookstoreapp/nodejs/
+/src/main/frontend-ui/bookstoreapp/npm/
