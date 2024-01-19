@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eed3511d-4741-4462-a1b9-3715782a6a66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/idfc/bootcamp/bookstore/BookApiIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/idfc/bootcamp/bookstore/BookApiIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/schema/V1__Create_Books.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/schema/V1__Create_Books.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -281,7 +280,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705566702454</updated>
       <workItem from="1705570010378" duration="7272000" />
-      <workItem from="1705637823652" duration="11572000" />
+      <workItem from="1705637823652" duration="11902000" />
     </task>
     <servers />
   </component>
