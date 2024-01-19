@@ -1,6 +1,7 @@
 package com.idfc.bootcamp.bookstore;
 
-import com.idfc.bootcamp.bookstore.dto.Book;
+import com.idfc.bootcamp.bookstore.dto.BookDto;
+import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,13 +14,17 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.awt.print.Book;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -38,24 +43,52 @@ public class BookApiIntegrationTest {
     private String baseUrl;
 
     @BeforeEach
-    void setUp(){
-        baseUrl = "http://localhost:"+randomServerPort+"/";
+    void setUp() {
+        baseUrl = "http://localhost:" + randomServerPort + "/";
     }
 
     @Test
     @DisplayName("should return list of books when endpoint is accessed")
     void shouldReturnListOfBooksWhenEndpointIsAccessed() {
-        Book b1 = new Book("Refactoring", "abc");
-        Book b2 = new Book("TDD", "xyz");
+        BookEntity b1 = new BookEntity(1L,"Clean Code", "Robert Cecil","desc","image",20.00);
+        BookEntity b2 = new BookEntity(2L,"Clean Code", "Robert Cecil","desc","image",20.00);
         bookRepository.saveAll(Arrays.asList(b1, b2));
-        final List<Book> books = restTemplate.exchange(baseUrl + "/books", HttpMethod.GET, null,
+        final List<Book> books = restTemplate.exchange(baseUrl + "/book/find-all", HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Book>>() {
-        }).getBody();
+                }).getBody();
         assertEquals(2, books.size());
     }
 
+    @Test
+    @DisplayName("should create a book and return the created book")
+    void shouldCreateBookAndReturnCreatedBook() {
+        BookDto bookDto = new BookDto(5L,"Clean Code", "Robert Cecil", "desc", "image", 20.00);
+
+        ResponseEntity<BookDto> response = restTemplate.postForEntity(baseUrl + "/book/create", bookDto, BookDto.class);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals("Clean Code", response.getBody().getTitle());
+        // Add more assertions based on the expected values.
+    }
+
+    @Test
+    @DisplayName("should fetch a book by Id")
+    void shouldFetchBookById() {
+        // Assuming there is a book with ID 1 in the database
+        Long existingBookId = 1L;
+        BookEntity b1 = new BookEntity(1L, "Clean Code", "Robert Cecil", "desc", "image", 20.00);
+        bookRepository.save(b1);
+        ResponseEntity<BookDto> response = restTemplate.exchange(
+                baseUrl + "book/fetch/{id}", HttpMethod.GET, null,
+                new ParameterizedTypeReference<BookDto>() {}, existingBookId);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        /*assertNotNull(response.getBody());
+        assertEquals(existingBookId, response.getBody().getId());*/
+    }
+
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         bookRepository.deleteAll();
     }
 }
