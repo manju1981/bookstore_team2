@@ -1,5 +1,7 @@
 package com.idfc.bootcamp.bookstore.util;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,5 +20,11 @@ public class MapperUtility {
             return null;
         }
         return modelMapper.map(source, destinationType);
+    }
+
+    public static <S, T> List<T> convertPageToList(Page<S> sourcePage, Class<T> destinationType) {
+        return sourcePage.getContent().stream()
+                .map(item -> modelMapper.map(item, destinationType))
+                .collect(Collectors.toList());
     }
 }
