@@ -1,4 +1,4 @@
-package com.idfc.bootcamp.bookstore;
+package com.idfc.bootcamp.bookstore.dto;
 
 import jakarta.persistence.*;
 

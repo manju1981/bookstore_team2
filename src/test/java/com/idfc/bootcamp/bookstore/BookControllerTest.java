@@ -1,5 +1,7 @@
 package com.idfc.bootcamp.bookstore;
 
+import com.idfc.bootcamp.bookstore.dto.Book;
+import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

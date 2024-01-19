@@ -1,5 +1,7 @@
 package com.idfc.bootcamp.bookstore;
 
+import com.idfc.bootcamp.bookstore.dto.Book;
+import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

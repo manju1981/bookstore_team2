@@ -1,5 +1,7 @@
-package com.idfc.bootcamp.bookstore;
+package com.idfc.bootcamp.bookstore.service;
 
+import com.idfc.bootcamp.bookstore.dto.Book;
+import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
