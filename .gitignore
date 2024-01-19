@@ -1,5 +1,4 @@
 build/
-resources/
 src/main/frontend-ui/bookstoreapp/nodejs/
 src/main/frontend-ui/bookstoreapp/npm/npm-v9.2.0/
 .gradle/

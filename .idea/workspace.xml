@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eed3511d-4741-4462-a1b9-3715782a6a66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/dto/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/repository/BookRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/service/BookService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/idfc/bootcamp/bookstore/BookApiIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/idfc/bootcamp/bookstore/BookApiIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/idfc/bootcamp/bookstore/BookControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/idfc/bootcamp/bookstore/BookControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +39,12 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="bookstore" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="bookstore" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -93,11 +93,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.BookApiIntegrationTest.shouldReturnListOfBooksWhenEndpointIsAccessed.executor": "Run",
     "Gradle.BookControllerTest.executor": "Run",
     "Gradle.BookControllerTest.shouldReturnSuccessHttpStatus.executor": "Run",
     "Gradle.BookControllerTest.shouldReturnTheFirstBookTitleAsAbc.executor": "Run",
     "Gradle.Build bootstrap_bare_project.executor": "Run",
     "Gradle.Tests in 'bookstore.test'.executor": "Run",
+    "Gradle.bootstrap_bare_project [build].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -130,6 +132,30 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.BookstoreApplication">
+    <configuration name="BookApiIntegrationTest.shouldReturnListOfBooksWhenEndpointIsAccessed" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.idfc.bootcamp.bookstore.BookApiIntegrationTest.shouldReturnListOfBooksWhenEndpointIsAccessed&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="BookControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -144,30 +170,6 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;com.idfc.bootcamp.bookstore.BookControllerTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="BookControllerTest.shouldReturnSuccessHttpStatus" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.idfc.bootcamp.bookstore.BookControllerTest.shouldReturnSuccessHttpStatus&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -224,6 +226,28 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="bootstrap_bare_project [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="BookstoreApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="bookstore.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.idfc.bootcamp.bookstore.BookstoreApplication" />
@@ -233,10 +257,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.BookApiIntegrationTest.shouldReturnListOfBooksWhenEndpointIsAccessed" />
+        <item itemvalue="Gradle.bootstrap_bare_project [build]" />
         <item itemvalue="Gradle.BookControllerTest" />
         <item itemvalue="Gradle.Tests in 'bookstore.test'" />
         <item itemvalue="Gradle.BookControllerTest.shouldReturnTheFirstBookTitleAsAbc" />
-        <item itemvalue="Gradle.BookControllerTest.shouldReturnSuccessHttpStatus" />
       </list>
     </recent_temporary>
   </component>
@@ -256,7 +281,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705566702454</updated>
       <workItem from="1705570010378" duration="7272000" />
-      <workItem from="1705637823652" duration="10747000" />
+      <workItem from="1705637823652" duration="11572000" />
     </task>
     <servers />
   </component>

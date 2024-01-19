@@ -45,8 +45,8 @@ public class BookApiIntegrationTest {
     @Test
     @DisplayName("should return list of books when endpoint is accessed")
     void shouldReturnListOfBooksWhenEndpointIsAccessed() {
-        Book b1 = new Book("Refactoring");
-        Book b2 = new Book("TDD");
+        Book b1 = new Book("Refactoring", "abc");
+        Book b2 = new Book("TDD", "xyz");
         bookRepository.saveAll(Arrays.asList(b1, b2));
         final List<Book> books = restTemplate.exchange(baseUrl + "/books", HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Book>>() {
