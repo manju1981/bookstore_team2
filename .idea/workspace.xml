@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eed3511d-4741-4462-a1b9-3715782a6a66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/Book.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/BookController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/BookRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/BookService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/idfc/bootcamp/bookstore/BookApiIntegrationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/idfc/bootcamp/bookstore/BookControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/frontend-ui/bookstoreapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/frontend-ui/bookstoreapp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/idfc/bootcamp/bookstore/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/seed/V2__Books_Seed.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/idfc/bootcamp/bookstore/BookControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/idfc/bootcamp/bookstore/BookControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,40 +88,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.BookControllerTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.BookControllerTest.shouldReturnSuccessHttpStatus.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.BookControllerTest.shouldReturnTheFirstBookTitleAsAbc.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build bootstrap_bare_project.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Tests in 'bookstore.test'.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BookstoreApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/manjurn/bootcamp/bootstrap_bare_project&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.BookControllerTest.executor": "Run",
+    "Gradle.BookControllerTest.shouldReturnSuccessHttpStatus.executor": "Run",
+    "Gradle.BookControllerTest.shouldReturnTheFirstBookTitleAsAbc.executor": "Run",
+    "Gradle.Build bootstrap_bare_project.executor": "Run",
+    "Gradle.Tests in 'bookstore.test'.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "Spring Boot.BookstoreApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/manjurn/bootcamp/bootstrap_bare_project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.idfc.bootcamp.bookstore" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.BookControllerTest">
+  <component name="RunManager" selected="Spring Boot.BookstoreApplication">
     <configuration name="BookControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -250,7 +252,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705566702454</updated>
       <workItem from="1705570010378" duration="7272000" />
-      <workItem from="1705637823652" duration="4944000" />
+      <workItem from="1705637823652" duration="9393000" />
     </task>
     <servers />
   </component>

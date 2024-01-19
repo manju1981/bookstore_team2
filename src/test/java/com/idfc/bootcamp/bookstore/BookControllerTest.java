@@ -33,8 +33,8 @@ public class BookControllerTest {
     @Test
     @DisplayName("should return two books")
     void shouldReturnTwoBooks() throws Exception {
-        Book b1 = new Book("abc");
-        Book b2 = new Book("xyz");
+        Book b1 = new Book("Clean Code", "Robert Cecil");
+        Book b2 = new Book("Programming Pearls", "Jon Bently");
         when(bookRepository.findAll()).thenReturn(Arrays.asList(b1,b2));
         mockMvc.perform(get("/books")).andExpect(jsonPath("$.length()").value(2));
     }
@@ -42,8 +42,8 @@ public class BookControllerTest {
     @Test
     @DisplayName("should return the first book titles")
     void shouldReturnTheFirstBookTitleAsAbc() throws Exception {
-        Book b1 = new Book("abc");
-        Book b2 = new Book("xyz");
+        Book b1 = new Book("Clean Code", "Robert Cecil");
+        Book b2 = new Book("Programming Pearls", "Jon Bently");
         when(bookRepository.findAll()).thenReturn(Arrays.asList(b1,b2));
         mockMvc.perform(get("/books")).
                 andExpect(jsonPath("$[0].title").value("abc")).
