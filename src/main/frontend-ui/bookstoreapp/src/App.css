@@ -1,5 +1,10 @@
+@import '~semantic-ui-css/semantic.min.css';
+
 .App {
   text-align: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -40,27 +45,32 @@
   }
 }
 
-
 .header-container {
-  background-color: #262626;
   display: flex;
+  background-color: #262626;
   flex-direction: row;
-  justify-content: space-between;
-  height: 50px;
-  width: 100%;
-  padding: 10px;
-  color: #6ca12b;
   align-items: center;
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
+  padding: 10px;
+}
+
+.icon-container {
+  height: 70px;
+  width: 90px;
+}
+
+.header-text {
+  display: flex;
+  width: 100%;
+  margin-left: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #6ca12b;
 }
 
 .body-container {
   display: flex;
   flex: 1;
-  flex-direction: column;  
+  flex-direction: column;
   padding: 10px 10px 60px 10px;
   align-items: center;
   justify-content: center;
@@ -69,32 +79,63 @@
   height: auto;
 }
 
-.footer-container {
+/* .footer-container {
   background-color: #262626;
   display: flex;
   flex-direction: row;
   height: 50px;
   width: 100%;
   padding: 10px;
- color: white;
+  color: white;
   align-items: center;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+} */
+
+.footer-container {
+  display: flex;
+  background-color: #262626;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
-.search-container{
+
+.footer-text {
+  display: flex;
+  flex: 1;
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #6ca12b;
+}
+
+.action-icons {
+  flex-direction: row;
+}
+
+.action-icon {
+  width: 35px;
+  height: 35px;
+  margin-right: 20px;
+}
+
+.search-container {
   width: 90%;
   height: auto;
-
 }
 
-.search-input{
+.search-input {
   width: 89%;
   height: 50px;
 }
 
-.button{
+.button {
   width: 125px;
   height: 57px;
   background-color: #6ca12b;
@@ -116,7 +157,7 @@
 }
 
 .card-upper-body {
- height: 231px;
+  height: 231px;
 }
 
 .card-lower-body {
@@ -124,7 +165,7 @@
   flex: 1;
   flex-direction: column;
   align-items: start;
-    padding: 9px 18px;
+  padding: 9px 18px;
 }
 
 .cord-collection-wrapper {
@@ -149,16 +190,15 @@
   border-top-left-radius: 5px;
 }
 
-.card-title{
+.card-title {
   font-size: 22px;
   color: black;
   font-weight: 600;
-
 }
 
-.card-author{
+.card-author {
   margin-top: 4px;
-    font-size: 16px;
-    color: black;
-    font-weight: 400;
+  font-size: 16px;
+  color: black;
+  font-weight: 400;
 }
