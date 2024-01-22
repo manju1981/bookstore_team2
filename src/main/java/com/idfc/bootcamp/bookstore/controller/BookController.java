@@ -22,10 +22,10 @@ public class BookController {
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
-    @GetMapping("/find-all")
+    /*@GetMapping("/find-all")
     public ResponseEntity<List<BookDto>> listBooks() {
         return ResponseEntity.ok(MapperUtility.mapList(bookService.fetchAllBooks(), BookDto.class));
-    }
+    }*/
     @PostMapping("/create")
     public ResponseEntity<BookDto> createBook(@RequestBody @Valid BookDto dto) {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.create(dto), BookDto.class));
@@ -34,7 +34,7 @@ public class BookController {
     public ResponseEntity<BookDto> fetchBook(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.findById(id), BookDto.class));
     }
-    @GetMapping("/find-all-paginated")
+    @GetMapping("/find-all")
     public ResponseEntity<List<BookDto>> findBooksPageable(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {
