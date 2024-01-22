@@ -2,7 +2,6 @@ package com.idfc.bootcamp.bookstore;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.idfc.bootcamp.bookstore.dto.BookDto;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import com.idfc.bootcamp.bookstore.repository.CountryRepository;
@@ -15,12 +14,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,7 +77,6 @@ public class BookControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("New Book"))
                 .andExpect(jsonPath("$.author").value("John Doe"));
-
     }
 
     @Test
