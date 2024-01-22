@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BookService {
@@ -24,7 +25,7 @@ public class BookService {
     }
 
     public BookEntity create(BookDto dto) {
-        return bookRepository.save(MapperUtility.convertClass(dto, BookEntity.class));
+        return bookRepository.save(Objects.requireNonNull(MapperUtility.convertClass(dto, BookEntity.class)));
     }
 
     public BookEntity findById(Long id) {
@@ -32,6 +33,6 @@ public class BookService {
     }
 
     public Page<BookEntity> findBooksPageable(int page, int offset) {
-        return bookRepository.findAll(PageRequest.of(page - 1, offset));
+        return bookRepository.findAll(PageRequest.of(page - 1 , offset));
     }
 }

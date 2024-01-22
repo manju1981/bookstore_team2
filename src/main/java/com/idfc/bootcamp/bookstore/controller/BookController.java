@@ -8,12 +8,15 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("book")
+@RequestMapping("api/v1/book")
 public class BookController {
 
     BookService bookService;
@@ -22,13 +25,8 @@ public class BookController {
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
-
-    /*@GetMapping("/find-all")
-    public ResponseEntity<List<BookDto>> listBooks() {
-        return ResponseEntity.ok(MapperUtility.mapList(bookService.fetchAllBooks(), BookDto.class));
-    }*/
     @PostMapping("/create")
-    public ResponseEntity<BookDto> createBook(@RequestBody @Valid BookDto dto) {
+    public ResponseEntity<BookDto> createBook(@Valid @RequestBody BookDto dto) {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.create(dto), BookDto.class));
     }
 
@@ -37,10 +35,10 @@ public class BookController {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.findById(id), BookDto.class));
     }
 
-    @GetMapping("/find-all")
+    @GetMapping("/fetch-all")
     public ResponseEntity<List<BookDto>> findBooksPageable(
-            @RequestParam(defaultValue = "1", required = false) int page,
-            @RequestParam(defaultValue = "10", required = false) int size) {
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(page, size), BookDto.class));
     }
 }

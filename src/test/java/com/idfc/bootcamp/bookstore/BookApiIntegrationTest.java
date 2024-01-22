@@ -44,7 +44,7 @@ public class BookApiIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        baseUrl = "http://localhost:" + randomServerPort + "/";
+        baseUrl = "http://localhost:" + randomServerPort + "/api/v1/";
     }
 
     @Test
@@ -54,7 +54,7 @@ public class BookApiIntegrationTest {
         BookEntity b2 = new BookEntity(2L,"Clean Code", "Robert Cecil","desc","image",20.00);
         bookRepository.deleteAll();
         bookRepository.saveAll(Arrays.asList(b1, b2));
-        final List<Book> books = restTemplate.exchange(baseUrl + "/book/find-all", HttpMethod.GET, null,
+        final List<Book> books = restTemplate.exchange(baseUrl + "/book/fetch-all", HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Book>>() {
                 }).getBody();
         assertEquals(2, books.size());
