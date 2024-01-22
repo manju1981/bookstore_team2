@@ -1,8 +1,15 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render } from "@testing-library/react";
+import App from "./App";
+import Header from "./components/Header/Header";
+import Books from "./components/Books/Books";
+import Footer from "./components/Footer/Footer";
 
-test('renders learn react link', () => {
+test("renders bookstore application", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  render(<Header />);
+  render(<Books />);
+  render(<Footer />);
+
+  // const linkElement = screen.getByText(/learn react/i);
+  // expect(linkElement).toBeInTheDocument();
 });

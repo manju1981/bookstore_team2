@@ -12,7 +12,6 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@Valid
 public class BookDto {
 
     private Long id;
@@ -24,6 +23,5 @@ public class BookDto {
     private String description;
     @NotEmpty(message = "img should not be empty")
     private String img;
-    @NotBlank(message = "price should not be empty")
     private double price;
 }

@@ -6,3 +6,5 @@ src/main/frontend-ui/bookstoreapp/npm/npm-v9.2.0/
 /src/main/frontend-ui/bookstoreapp/node_modules/
 /src/main/frontend-ui/bookstoreapp/nodejs/
 /src/main/frontend-ui/bookstoreapp/npm/
+.idea/
+.vscode/

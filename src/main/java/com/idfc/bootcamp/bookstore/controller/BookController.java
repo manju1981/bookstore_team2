@@ -26,7 +26,7 @@ public class BookController {
         this.bookService = bookService;
     }
     @PostMapping("/create")
-    public ResponseEntity<BookDto> createBook(@Valid @RequestBody BookDto dto) {
+    public ResponseEntity<BookDto> createBook(@Validated @RequestBody BookDto dto) {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.create(dto), BookDto.class));
     }
 
