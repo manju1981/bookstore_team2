@@ -6,10 +6,10 @@ import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.enums.Type;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import com.idfc.bootcamp.bookstore.util.MapperUtility;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,8 +37,8 @@ public class BookService {
         return MapperUtility.convertClass(bookRepository.findById(id), BookEntity.class);
     }
 
-    public Page<BookEntity> findBooksPageable(int page, int offset) {
-        return bookRepository.findAll(PageRequest.of(page - 1, offset));
+    public Page<BookEntity> findBooksPageable(int page, int offset,String sort) {
+        return bookRepository.findAll(PageRequest.of(page - 1, offset, Sort.by(sort)));
     }
 
     public BookEntity update(Long id, QuantityDto book) {

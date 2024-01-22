@@ -21,6 +21,7 @@ public class BookEntity implements java.io.Serializable{
     private String title;
     private String author;
     private String description;
+    private int rating;
     private String img;
     private double price;
     private int quantity;

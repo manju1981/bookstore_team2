@@ -21,6 +21,7 @@ public class BookDto {
     private String author;
     @NotEmpty(message = "description should not be empty")
     private String description;
+    private int rating;
     @NotEmpty(message = "img should not be empty")
     private String img;
     private double price;

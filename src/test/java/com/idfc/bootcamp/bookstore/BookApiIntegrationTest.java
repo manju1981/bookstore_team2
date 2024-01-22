@@ -50,8 +50,8 @@ public class BookApiIntegrationTest {
     @Test
     @DisplayName("should return list of books when endpoint is accessed")
     void shouldReturnListOfBooksWhenEndpointIsAccessed() {
-        BookEntity b1 = new BookEntity(1L,"Clean Code", "Robert Cecil","desc","image",20.00,1);
-        BookEntity b2 = new BookEntity(2L,"Clean Code", "Robert Cecil","desc","image",20.00,1);
+        BookEntity b1 = new BookEntity(1L,"Clean Code", "Robert Cecil","desc",1,"image",20.00,1);
+        BookEntity b2 = new BookEntity(2L,"Clean Code", "Robert Cecil","desc",1,"image",20.00,1);
         bookRepository.deleteAll();
         bookRepository.saveAll(Arrays.asList(b1, b2));
         final List<Book> books = restTemplate.exchange(baseUrl + "/book/fetch-all", HttpMethod.GET, null,
@@ -63,7 +63,7 @@ public class BookApiIntegrationTest {
     @Test
     @DisplayName("should create a book and return the created book")
     void shouldCreateBookAndReturnCreatedBook() {
-        BookDto bookDto = new BookDto(5L,"Clean Code", "Robert Cecil", "desc", "image", 20.00,1);
+        BookDto bookDto = new BookDto(5L,"Clean Code", "Robert Cecil", "desc",1, "image", 20.00,1);
 
         ResponseEntity<BookDto> response = restTemplate.postForEntity(baseUrl + "/book/create", bookDto, BookDto.class);
 
@@ -78,7 +78,7 @@ public class BookApiIntegrationTest {
     void shouldFetchBookById() {
         // Assuming there is a book with ID 1 in the database
         Long existingBookId = 1L;
-        BookEntity b1 = new BookEntity(1L, "Clean Code", "Robert Cecil", "desc", "image", 20.00,1);
+        BookEntity b1 = new BookEntity(1L, "Clean Code", "Robert Cecil", "desc",1, "image", 20.00,1);
         bookRepository.save(b1);
         ResponseEntity<BookDto> response = restTemplate.exchange(
                 baseUrl + "book/fetch/{id}", HttpMethod.GET, null,
@@ -91,9 +91,9 @@ public class BookApiIntegrationTest {
     @Test
     @DisplayName("should fetch list of books based on search ")
     void shouldFetchListOfBooksBasedOnSearch() {
-        BookEntity b1 = new BookEntity(1L, "Clean Code", "Robert Cecil", "desc", "image", 20.00,1);
-        BookEntity b2 = new BookEntity(1L, "Clean Code", "search Cecil", "desc", "image", 20.00,1);
-        BookEntity b3 = new BookEntity(1L, "Clean Code", "search Cecil", "desc", "image", 20.00,1);
+        BookEntity b1 = new BookEntity(1L, "Clean Code", "Robert Cecil", "desc",1, "image", 20.00,1);
+        BookEntity b2 = new BookEntity(1L, "Clean Code", "search Cecil", "desc",1, "image",20.00,1);
+        BookEntity b3 = new BookEntity(1L, "Clean Code", "search Cecil", "desc",1, "image", 20.00,1);
         bookRepository.save(b1);
         bookRepository.save(b2);
         bookRepository.save(b3);

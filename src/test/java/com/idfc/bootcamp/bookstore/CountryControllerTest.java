@@ -1,8 +1,6 @@
 package com.idfc.bootcamp.bookstore;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.entity.CountryEntity;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import com.idfc.bootcamp.bookstore.repository.CountryRepository;
@@ -15,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -38,8 +36,8 @@ public class CountryControllerTest {
     }
 
     @Test
-    @DisplayName("should create a country when create api is caled with required params")
-    void shouldCreateACountryWhenCreateApiIsCaledWithRequiredParams() throws Exception {
+    @DisplayName("should create a country when create api is called with required params")
+    void shouldCreateACountryWhenCreateApiIsCalledWithRequiredParams() throws Exception {
         CountryEntity country = new CountryEntity(5L,"India");
         when(countryRepository.save(Mockito.any())).thenReturn(country);
 

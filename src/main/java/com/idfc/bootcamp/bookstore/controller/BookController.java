@@ -36,8 +36,9 @@ public class BookController {
     @GetMapping("/fetch-all")
     public ResponseEntity<List<BookDto>> findBooksPageable(
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(page, size), BookDto.class));
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "title") String sort) {
+        return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(page, size, sort), BookDto.class));
     }
 
     @GetMapping("/search")
