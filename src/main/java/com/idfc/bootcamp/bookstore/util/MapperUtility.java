@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageImpl;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 public class MapperUtility {
     private static final ModelMapper modelMapper = new ModelMapper();
@@ -16,14 +17,14 @@ public class MapperUtility {
     }
 
     public static <S, T> T convertClass(S source, Class<T> destinationType) {
-        if (source == null) {
+        if (Objects.isNull(source)) {
             return null;
         }
         return modelMapper.map(source, destinationType);
     }
 
     public static <S, T> List<T> convertPageToList(Page<S> sourcePage, Class<T> destinationType) {
-        if (sourcePage == null) {
+        if (Objects.isNull(sourcePage)) {
             return null;
         }
         return sourcePage.getContent().stream()
