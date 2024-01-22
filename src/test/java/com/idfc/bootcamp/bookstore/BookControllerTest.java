@@ -3,7 +3,9 @@ package com.idfc.bootcamp.bookstore;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.idfc.bootcamp.bookstore.dto.QuantityDto;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
+import com.idfc.bootcamp.bookstore.enums.Type;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import com.idfc.bootcamp.bookstore.repository.CountryRepository;
 import com.idfc.bootcamp.bookstore.service.BookService;
@@ -103,13 +105,13 @@ public class BookControllerTest {
         BookEntity existingBook = new BookEntity(5L, "New Book", "John Doe", "Description", "Image", 29.99, 1);
         when(bookRepository.findById(5L)).thenReturn(Optional.of(existingBook));
 
-        BookEntity updatedBook = new BookEntity(0L, null, null, null, null, 29.99, 1);
+        QuantityDto quantity = new QuantityDto(5, Type.BUY);
         // When
         mockMvc.perform(post("/api/v1/book/update/5")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(updatedBook)))
+                        .content(new ObjectMapper().writeValueAsString(quantity)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.quantity").value(2));
+                .andExpect(jsonPath("$.quantity").value(6));
     }
 
     @Test
