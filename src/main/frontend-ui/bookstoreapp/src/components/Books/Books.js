@@ -43,8 +43,7 @@ const Books = () => {
   ];
   return (
     <div className="body-container">
-      <Search />
-      <div className="cord-collection-wrapper">
+      <div className="cord-collection-wrapper" data-testid="Books-test">
         {data.map((item, index) => (
           <Card key={index} data={item} />
         ))}

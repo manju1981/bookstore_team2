@@ -62,7 +62,7 @@ const Search = () => {
   }, []);
 
   return (
-    <SemanticSearch
+    <SemanticSearch data-testid="Search-container"
       loading={loading}
       placeholder='Search books...'
       onResultSelect={(e, data) =>
