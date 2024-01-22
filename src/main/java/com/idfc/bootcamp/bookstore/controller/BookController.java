@@ -20,6 +20,7 @@ public class BookController {
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
+
     @PostMapping("/create")
     public ResponseEntity<BookDto> createBook(@Valid @RequestBody BookDto dto) throws Exception {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.create(dto), BookDto.class));
@@ -35,5 +36,10 @@ public class BookController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(page, size), BookDto.class));
+    }
+
+    @PostMapping("/update/{id}")
+    public ResponseEntity<BookDto> updateBook(@PathVariable(value = "id") Long id, @RequestBody BookDto dto) throws Exception {
+        return ResponseEntity.ok(MapperUtility.convertClass(bookService.update(id,dto), BookDto.class));
     }
 }

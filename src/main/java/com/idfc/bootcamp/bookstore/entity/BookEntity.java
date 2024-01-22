@@ -23,4 +23,5 @@ public class BookEntity {
     private String description;
     private String img;
     private double price;
+    private int quantity;
 }

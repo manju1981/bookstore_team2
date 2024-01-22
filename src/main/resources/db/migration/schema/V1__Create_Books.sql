@@ -6,5 +6,6 @@ author varchar(25) not null,
 description text not null,
 price double precision,
 img varchar(255),
+quantity int,
 primary key(id)
 )

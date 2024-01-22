@@ -2,6 +2,7 @@ package com.idfc.bootcamp.bookstore.dto;
 
 //import jakarta.validation.constraints.NotBlank;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -23,4 +24,6 @@ public class BookDto {
     @NotEmpty(message = "img should not be empty")
     private String img;
     private double price;
+    @Min(value = 1, message = "kindly add quantity of books")
+    private int quantity;
 }
