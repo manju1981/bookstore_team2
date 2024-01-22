@@ -22,6 +22,7 @@ public class BookController {
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
+
     /*@GetMapping("/find-all")
     public ResponseEntity<List<BookDto>> listBooks() {
         return ResponseEntity.ok(MapperUtility.mapList(bookService.fetchAllBooks(), BookDto.class));
@@ -30,14 +31,16 @@ public class BookController {
     public ResponseEntity<BookDto> createBook(@RequestBody @Valid BookDto dto) {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.create(dto), BookDto.class));
     }
+
     @GetMapping("/fetch/{id}")
     public ResponseEntity<BookDto> fetchBook(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.findById(id), BookDto.class));
     }
+
     @GetMapping("/find-all")
     public ResponseEntity<List<BookDto>> findBooksPageable(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "1", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int size) {
         return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(page, size), BookDto.class));
     }
 }
