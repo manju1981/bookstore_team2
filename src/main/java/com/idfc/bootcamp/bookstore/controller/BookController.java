@@ -2,6 +2,7 @@ package com.idfc.bootcamp.bookstore.controller;
 
 import com.idfc.bootcamp.bookstore.dto.BookDto;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
+import com.idfc.bootcamp.bookstore.dto.QuantityDto;
 import com.idfc.bootcamp.bookstore.service.BookService;
 import com.idfc.bootcamp.bookstore.util.MapperUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class BookController {
 
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<BookDto> updateBook(@PathVariable(value = "id") Long id, @RequestBody BookDto dto) throws Exception {
+    public ResponseEntity<BookDto> updateBook(@PathVariable(value = "id") Long id, @RequestBody QuantityDto dto) throws Exception {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.update(id,dto), BookDto.class));
     }
 }

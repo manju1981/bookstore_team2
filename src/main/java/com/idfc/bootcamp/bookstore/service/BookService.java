@@ -1,7 +1,9 @@
 package com.idfc.bootcamp.bookstore.service;
 
 import com.idfc.bootcamp.bookstore.dto.BookDto;
+import com.idfc.bootcamp.bookstore.dto.QuantityDto;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
+import com.idfc.bootcamp.bookstore.enums.Type;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import com.idfc.bootcamp.bookstore.util.MapperUtility;
 import org.springframework.beans.BeanUtils;
@@ -39,10 +41,14 @@ public class BookService {
         return bookRepository.findAll(PageRequest.of(page - 1, offset));
     }
 
-    public BookEntity update(Long id, BookDto book) {
+    public BookEntity update(Long id, QuantityDto book) {
         Optional<BookEntity> existingBook = bookRepository.findById(id);
         if (existingBook.isPresent() && book.getQuantity() != 0) {
-            existingBook.get().setQuantity(book.getQuantity() + existingBook.get().getQuantity());
+            if (Type.BUY.equals(book.getType())) {
+                existingBook.get().setQuantity(book.getQuantity() + existingBook.get().getQuantity());
+            } else if(existingBook.get().getQuantity() - book.getQuantity() >= 0) {
+                existingBook.get().setQuantity(existingBook.get().getQuantity() - book.getQuantity());
+            }
             bookRepository.save(existingBook.get());
             return existingBook.get();
         }
