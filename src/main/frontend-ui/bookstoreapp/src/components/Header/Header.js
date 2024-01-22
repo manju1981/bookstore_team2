@@ -1,12 +1,18 @@
 import React from "react";
 import logo from "../../assets/book_logo.png";
+import { Header as HeaderComponent } from 'semantic-ui-react';
+import Search from "../Search/Search";  
+import { headerStyle, logoStyle, textStyle, searchContainerStyle } from './Header.style';  
 
 const Header = () => {
   return (
-    <div className="header-container">
-      <img src={logo} className="icon-container" alt="book-logo" />
-      <div className="header-text">THE BOOK STORE</div>
-    </div>
+    <HeaderComponent as='h2' style={headerStyle}>
+      <img src={logo} alt="book-logo" style={logoStyle} />
+      <span style={textStyle}>THE BOOKSTORE</span>
+      <div style={searchContainerStyle}>
+        <Search />
+      </div>
+    </HeaderComponent>
   );
 };
 
