@@ -107,7 +107,7 @@ public class BookControllerTest {
 
         QuantityDto quantity = new QuantityDto(5, Type.BUY);
         // When
-        mockMvc.perform(post("/api/v1/book/update/5")
+        mockMvc.perform(post("/api/v1/book/update-quantity/5")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(quantity)))
                 .andExpect(status().isOk())
