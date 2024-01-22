@@ -7,7 +7,7 @@ const Search = () => {
         <input
           type="text"
           name="text"
-          placeholder="search users..."
+          placeholder="search books..."
           className="search-input"
         />
         <button type="submit" className="button">
