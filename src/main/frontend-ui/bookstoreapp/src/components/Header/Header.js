@@ -6,9 +6,9 @@ import { headerStyle, logoStyle, textStyle, searchContainerStyle } from './Heade
 
 const Header = () => {
   return (
-    <HeaderComponent as='h2' style={headerStyle}>
-      <img src={logo} alt="book-logo" style={logoStyle} />
-      <span style={textStyle}>THE BOOKSTORE</span>
+    <HeaderComponent style={headerStyle} data-testid="Header-test">
+      <img src={logo} alt="book-logo" style={logoStyle} data-testid="Logo-test"/>
+      <span style={textStyle} data-testid="Title-test">THE BOOKSTORE</span>
       <div style={searchContainerStyle}>
         <Search />
       </div>
