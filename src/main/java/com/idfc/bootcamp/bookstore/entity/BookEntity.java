@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class BookEntity {
+public class BookEntity implements java.io.Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

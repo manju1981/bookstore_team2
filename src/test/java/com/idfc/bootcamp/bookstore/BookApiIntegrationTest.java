@@ -88,6 +88,21 @@ public class BookApiIntegrationTest {
         assertEquals(existingBookId, response.getBody().getId());*/
     }
 
+    @Test
+    @DisplayName("should fetch list of books based on search ")
+    void shouldFetchListOfBooksBasedOnSearch() {
+        BookEntity b1 = new BookEntity(1L, "Clean Code", "Robert Cecil", "desc", "image", 20.00);
+        BookEntity b2 = new BookEntity(1L, "Clean Code", "search Cecil", "desc", "image", 20.00);
+        BookEntity b3 = new BookEntity(1L, "Clean Code", "search Cecil", "desc", "image", 20.00);
+        bookRepository.save(b1);
+        bookRepository.save(b2);
+        bookRepository.save(b3);
+        final List<Book> books = restTemplate.exchange(baseUrl + "/book/search?data=search", HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Book>>() {
+                }).getBody();
+        assertEquals(2, books.size());
+    }
+
     @AfterEach
     void tearDown() {
         bookRepository.deleteAll();

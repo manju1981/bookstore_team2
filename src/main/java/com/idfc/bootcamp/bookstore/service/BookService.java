@@ -48,4 +48,8 @@ public class BookService {
         }
         return new BookEntity();
     }
+
+    public List<BookEntity> searchBooks(String data){
+        return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data,data,data);
+    }
 }

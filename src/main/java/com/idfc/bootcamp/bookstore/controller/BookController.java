@@ -1,6 +1,7 @@
 package com.idfc.bootcamp.bookstore.controller;
 
 import com.idfc.bootcamp.bookstore.dto.BookDto;
+import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.service.BookService;
 import com.idfc.bootcamp.bookstore.util.MapperUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,14 @@ public class BookController {
             @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(page, size), BookDto.class));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<BookEntity>> searchBooks(
+            @RequestParam() String data){
+        return ResponseEntity.ok(bookService.searchBooks(data));
+    }
+
+
 
     @PostMapping("/update/{id}")
     public ResponseEntity<BookDto> updateBook(@PathVariable(value = "id") Long id, @RequestBody BookDto dto) throws Exception {
