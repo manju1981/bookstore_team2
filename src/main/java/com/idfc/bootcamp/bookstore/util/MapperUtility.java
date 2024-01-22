@@ -23,6 +23,9 @@ public class MapperUtility {
     }
 
     public static <S, T> List<T> convertPageToList(Page<S> sourcePage, Class<T> destinationType) {
+        if (sourcePage == null) {
+            return null;
+        }
         return sourcePage.getContent().stream()
                 .map(item -> modelMapper.map(item, destinationType))
                 .collect(Collectors.toList());
