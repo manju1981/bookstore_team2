@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idfc.bootcamp.bookstore.dto.BookDto;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
+import com.idfc.bootcamp.bookstore.repository.CountryRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -34,9 +35,10 @@ public class BookControllerTest {
 
     @Autowired
     MockMvc mockMvc;
-
     @MockBean
     BookRepository bookRepository;
+    @MockBean
+    CountryRepository countryRepository;
 
     @Test
     @DisplayName("should return success http status")
