@@ -112,4 +112,16 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.quantity").value(2));
     }
 
+    @Test
+    @DisplayName("should return two books which matches the search")
+    void shouldReturnTwoBooksWhichMatchesTheSearch() throws Exception {
+        BookEntity b1 = new BookEntity(1L,"Clean Code", "Robert Cecil","desc","image",20.00,1);
+        BookEntity b2 = new BookEntity(2L,"Clean Code", "Robert Cecil","desc","image",20.00,1);
+        List<BookEntity> books=List.of(b1,b2);
+        String data="cle";
+        when(bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase("c","c","c")).thenReturn(books);
+        mockMvc.perform(get("/api/v1/book/search?data=c")).andExpect(jsonPath("$.length()").value(2));
+    }
+
+
 }
