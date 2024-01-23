@@ -103,9 +103,13 @@ jobs:
     - name: package
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
+        arguments: copyFrontendFiles
+    - name: package
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      with:
         arguments: bootjar
     - name: upload artifact
       uses: actions/upload-artifact@v3
-      with: 
+      with:
         name: bookstore-0.0.1-SNAPSHOT.jar
         path: build/libs/bookstore-0.0.1-SNAPSHOT.jar
