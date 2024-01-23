@@ -1,13 +1,13 @@
-import { getByTestId, render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Books from "./Books";
 
-describe("Books Container ", () => {
+describe("Books Container", () => {
   beforeEach(() => {});
   afterEach(() => {
     jest.clearAllMocks();
   });
   it("should render the list of books", () => {
-    const { getByTestId } = render(<Books />);
-    expect(getByTestId("Books-test")).toBeInTheDocument();
+    render(<Books />);
+    expect(screen.getByTestId("Books-test")).toBeInTheDocument();
   });
 });

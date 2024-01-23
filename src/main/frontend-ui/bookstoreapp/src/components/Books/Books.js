@@ -1,5 +1,4 @@
 import React from "react";
-import Search from "../Search/Search";
 import Card from "../Cards";
 
 const Books = () => {

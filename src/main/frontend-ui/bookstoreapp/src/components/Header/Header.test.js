@@ -1,16 +1,16 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Header from "./Header";
 
 describe("Header Container", () => {
   it("should render the header", () => {
-    const { getByTestId } = render(<Header />);
-    expect(getByTestId("Header-test")).toBeInTheDocument();
+    render(<Header />);
+    expect(screen.getByTestId("Header-test")).toBeInTheDocument();
   });
 
   it("should render the logo & title under header", () => {
-    const { getByTestId } = render(<Header />);
-    expect(getByTestId("Header-test")).toBeInTheDocument();
-    expect(getByTestId("Logo-test")).toBeInTheDocument();
-    expect(getByTestId("Title-test")).toBeInTheDocument();
+    render(<Header />);
+    expect(screen.getByTestId("Header-test")).toBeInTheDocument();
+    expect(screen.getByTestId("Logo-test")).toBeInTheDocument();
+    expect(screen.getByTestId("Title-test")).toBeInTheDocument();
   });
 });
