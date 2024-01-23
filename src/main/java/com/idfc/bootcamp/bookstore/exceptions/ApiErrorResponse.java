@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class ApiErrorResponse {
-    private final String guid;
     private final String errorCode;
     private final String message;
     private final Integer statusCode;

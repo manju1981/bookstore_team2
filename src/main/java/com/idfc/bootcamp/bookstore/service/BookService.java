@@ -45,7 +45,7 @@ public class BookService {
     }
 
     private String generateIsbn() {
-        return RandomStringUtils.randomAlphabetic(5) + "-" + RandomStringUtils.randomAlphabetic(5);
+        return RandomStringUtils.randomAlphanumeric(5) + "-" + RandomStringUtils.randomAlphanumeric(5);
     }
 
     public BookEntity findById(Long id) {

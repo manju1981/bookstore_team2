@@ -22,13 +22,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     public ResponseEntity<?> handleApplicationException(
             final ApplicationException exception, final HttpServletRequest request
     ) {
-        var guid = UUID.randomUUID().toString();
-        log.error(
-                String.format("Error GUID=%s; error message: %s", guid, exception.getMessage()),
-                exception
-        );
         var response = new ApiErrorResponse(
-                guid,
                 exception.getErrorCode(),
                 exception.getMessage(),
                 exception.getHttpStatus().value(),
@@ -40,26 +34,5 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(response, exception.getHttpStatus());
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleUnknownException(
-            final Exception exception, final HttpServletRequest request
-    ) {
-        var guid = UUID.randomUUID().toString();
-        log.error(
-                String.format("Error GUID=%s; error message: %s", guid, exception.getMessage()),
-                exception
-        );
-        var response = new ApiErrorResponse(
-                guid,
-                String.valueOf(500),
-                "Internal server error",
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                HttpStatus.INTERNAL_SERVER_ERROR.name(),
-                request.getRequestURI(),
-                request.getMethod(),
-                LocalDateTime.now()
-        );
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 
 }

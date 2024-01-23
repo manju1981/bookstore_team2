@@ -1,10 +1,14 @@
 package com.idfc.bootcamp.bookstore;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.idfc.bootcamp.bookstore.dto.BookDto;
 import com.idfc.bootcamp.bookstore.dto.QuantityDto;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.enums.Type;
+import com.idfc.bootcamp.bookstore.exceptions.ApiErrors;
+import com.idfc.bootcamp.bookstore.exceptions.ApplicationException;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import com.idfc.bootcamp.bookstore.repository.CountryRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -21,12 +25,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.awt.print.Book;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -73,6 +79,26 @@ public class BookControllerTest {
         Page<BookEntity> pagedTasks = new PageImpl(List.of(b1,b2,b1,b2,b1,b2));
         when(bookRepository.findAll(PageRequest.of(0, 10, Sort.by("title")))).thenReturn(pagedTasks);
         mockMvc.perform(get("/api/v1/book/fetch-all")).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(6));
+    }
+
+    @Test
+    public void testBookAlreadyExists() throws Exception {
+        // Arrange
+        Long existingBookId = 1L;
+        BookDto dto = new BookDto();
+        dto.setId(existingBookId);
+        BookEntity b1 = new BookEntity(1L,"Clean Code","test", "Robert Cecil","desc",1,"image",20.00,1);
+
+
+        // Mock the behavior of bookRepository.findById to return a non-null value
+        when(bookRepository.findById(existingBookId)).thenReturn(Optional.of(b1));
+
+        mockMvc.perform(post("/api/v1/book/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(b1)))
+                .andExpect(status().is4xxClientError());
+        // Verify that bookRepository.findById was called with the correct ID
+        verify(bookRepository, times(1)).findById(existingBookId);
     }
 
     @Test
