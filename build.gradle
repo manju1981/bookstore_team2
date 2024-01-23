@@ -66,9 +66,9 @@ task testFrontend(type: YarnTask, dependsOn: installFEDependencies){
 	args =["test", "--watchAll=false"]
 }
 
-task copyFrontendFiles(type: Copy, dependsOn: buildFrontend){
+task copyFrontendFiles(type: Copy, dependsOn: [buildFrontend, resolveMainClassName]){
 	from "${project.projectDir}/src/main/frontend-ui/bookstoreapp/build/"
 	into "${project.projectDir}/build/resources/main/static"
 }
 
-bootJar.mustRunAfter copyFrontendFiles
+bootJar.dependsOn copyFrontendFiles
