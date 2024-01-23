@@ -25,10 +25,6 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<BookEntity> fetchAllBooks() {
-        return bookRepository.findAll();
-    }
-
     public BookEntity create(BookDto dto) {
         return bookRepository.save(Objects.requireNonNull(MapperUtility.convertClass(dto, BookEntity.class)));
     }
