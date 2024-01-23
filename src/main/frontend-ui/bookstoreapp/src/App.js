@@ -11,8 +11,13 @@ function App() {
     const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
-        fetch("http://localhost:8090/api/v1/books/fetch-all")
+        fetch(`http://localhost:8090/api/v1/books/fetch-all?page=${currentPage}&size=9`)
             .then((response) => response.json())
+            .then((data) => {
+                setBooks(data?.content);
+                setCurrentPage(data?.currentPage);
+                setTotalPages(data?.totalPages);
+            })
             .then((data) => {
                 setBooks(data?.content);
                 setCurrentPage(data?.currentPage);
@@ -25,10 +30,16 @@ function App() {
         setCurrentPage(activePage);
     };
 
+
     return (
         <div className="App">
             <Header />
             <Books books={books} />
+            <PaginationNavigation
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
             <Footer />
         </div>
     );
