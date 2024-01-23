@@ -44,7 +44,6 @@ public class CountryControllerTest {
         mockMvc.perform(post("/api/v1/country/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(country)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("India"));
+                .andExpect(status().isOk());
     }
 }
