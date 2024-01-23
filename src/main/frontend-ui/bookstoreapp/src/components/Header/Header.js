@@ -1,14 +1,26 @@
 import React from "react";
+import { Header as HeaderComponent, Image } from "semantic-ui-react";
 import logo from "../../assets/book_logo.png";
-import { Header as HeaderComponent } from 'semantic-ui-react';
-import Search from "../Search/Search";  
-import { headerStyle, logoStyle, textStyle, searchContainerStyle } from './Header.style';  
+import Search from "../Search/Search";
+import {
+  headerStyle,
+  logoStyle,
+  textStyle,
+  searchContainerStyle,
+} from "./Header.style";
 
 const Header = () => {
   return (
     <HeaderComponent style={headerStyle} data-testid="Header-test">
-      <img src={logo} alt="book-logo" style={logoStyle} data-testid="Logo-test"/>
-      <span style={textStyle} data-testid="Title-test">THE BOOKSTORE</span>
+      <Image
+        src={logo}
+        alt="book-logo"
+        style={logoStyle}
+        data-testid="Logo-test"
+      />
+      <span style={textStyle} data-testid="Title-test">
+        THE BOOKSTORE
+      </span>
       <div style={searchContainerStyle}>
         <Search />
       </div>
