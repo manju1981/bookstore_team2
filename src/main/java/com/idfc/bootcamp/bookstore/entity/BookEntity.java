@@ -14,11 +14,14 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@Builder
 public class BookEntity implements java.io.Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(name = "book_id")
+    private String bookId;
     private String author;
     private String description;
     private int rating;

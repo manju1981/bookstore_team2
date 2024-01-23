@@ -1,6 +1,5 @@
 package com.idfc.bootcamp.bookstore.dto;
 
-//import jakarta.validation.constraints.NotBlank;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -17,6 +16,7 @@ public class BookDto {
     private Long id;
     @NotEmpty(message = "title not be Empty and null")
     private String title;
+    private String bookId;
     @NotEmpty(message = "author should not be empty")
     private String author;
     @NotEmpty(message = "description should not be empty")

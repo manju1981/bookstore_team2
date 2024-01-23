@@ -1,6 +1,7 @@
 package com.idfc.bootcamp.bookstore;
 
 import com.idfc.bootcamp.bookstore.dto.BookDto;
+import com.idfc.bootcamp.bookstore.dto.PagedResponse;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -50,34 +51,47 @@ public class BookApiIntegrationTest {
     @Test
     @DisplayName("should return list of books when endpoint is accessed")
     void shouldReturnListOfBooksWhenEndpointIsAccessed() {
-        BookEntity b1 = new BookEntity(1L,"Clean Code", "Robert Cecil","desc",1,"image",20.00,1);
-        BookEntity b2 = new BookEntity(2L,"Clean Code", "Robert Cecil","desc",1,"image",20.00,1);
+        BookEntity b1 = new BookEntity(1L, "Clean Code", "test", "Robert Cecil", "desc", 1, "image", 20.00, 1);
+        BookEntity b2 = new BookEntity(2L, "Clean Code", "test", "Robert Cecil", "desc", 1, "image", 20.00, 1);
         bookRepository.deleteAll();
         bookRepository.saveAll(Arrays.asList(b1, b2));
-        final List<Book> books = restTemplate.exchange(baseUrl + "/book/fetch-all", HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<Book>>() {
-                }).getBody();
+        ResponseEntity<PagedResponse<BookDto>> response = restTemplate.exchange(
+                baseUrl + "/book/fetch-all",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<PagedResponse<BookDto>>() {
+                });
+
+        List<BookDto> books = response.getBody().getContent();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(books);
+
+        // Correct the JSON path expression to check the size of the content array
         assertEquals(2, books.size());
     }
 
     @Test
     @DisplayName("should return list of books when endpoint is accessed in descending order")
     void shouldReturnListOfBooksWhenEndpointIsAccessedInDescendingOrder() {
-        BookEntity b1 = new BookEntity(1L,"Clean Code", "Robert Cecil","desc",1,"image",20.00,1);
-        BookEntity b2 = new BookEntity(2L,"Clean Code", "Robert Cecil","desc",5,"image",20.00,1);
+        BookEntity b1 = new BookEntity(1L, "Clean Code", "test", "Robert Cecil", "desc", 1, "image", 20.00, 1);
+        BookEntity b2 = new BookEntity(2L, "Clean Code", "test", "Robert Cecil", "desc", 5, "image", 20.00, 1);
         bookRepository.deleteAll();
         bookRepository.saveAll(Arrays.asList(b1, b2));
-        final List<BookEntity> books = restTemplate.exchange(baseUrl + "/book/fetch-all?page=1&size=10&sort=rating&descending=true", HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<BookEntity>>() {
-                }).getBody();
-        BookEntity book=books.get(0);
-        assertEquals(5,book.getRating());
+        ResponseEntity<PagedResponse<BookEntity>> response = restTemplate.exchange(
+                baseUrl + "/book/fetch-all?page=1&size=10&sort=rating&descending=true",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<PagedResponse<BookEntity>>() {
+                });
+        BookEntity book = response.getBody().getContent().get(0);
+        assertEquals(5, book.getRating());
     }
 
     @Test
     @DisplayName("should create a book and return the created book")
     void shouldCreateBookAndReturnCreatedBook() {
-        BookDto bookDto = new BookDto(5L,"Clean Code", "Robert Cecil", "desc",1, "image", 20.00,1);
+        BookDto bookDto = new BookDto(5L, "Clean Code", "1234", "Robert Cecil", "desc", 1, "image", 20.00, 1);
 
         ResponseEntity<BookDto> response = restTemplate.postForEntity(baseUrl + "/book/create", bookDto, BookDto.class);
 
@@ -92,11 +106,12 @@ public class BookApiIntegrationTest {
     void shouldFetchBookById() {
         // Assuming there is a book with ID 1 in the database
         Long existingBookId = 1L;
-        BookEntity b1 = new BookEntity(1L, "Clean Code", "Robert Cecil", "desc",1, "image", 20.00,1);
+        BookEntity b1 = new BookEntity(1L, "Clean Code", "test", "Robert Cecil", "desc", 1, "image", 20.00, 1);
         bookRepository.save(b1);
         ResponseEntity<BookDto> response = restTemplate.exchange(
                 baseUrl + "book/fetch/{id}", HttpMethod.GET, null,
-                new ParameterizedTypeReference<BookDto>() {}, existingBookId);
+                new ParameterizedTypeReference<BookDto>() {
+                }, existingBookId);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         /*assertNotNull(response.getBody());
         assertEquals(existingBookId, response.getBody().getId());*/
@@ -105,9 +120,9 @@ public class BookApiIntegrationTest {
     @Test
     @DisplayName("should fetch list of books based on search ")
     void shouldFetchListOfBooksBasedOnSearch() {
-        BookEntity b1 = new BookEntity(1L, "Clean Code", "Robert Cecil", "desc",1, "image", 20.00,1);
-        BookEntity b2 = new BookEntity(1L, "Clean Code", "search Cecil", "desc",1, "image",20.00,1);
-        BookEntity b3 = new BookEntity(1L, "Clean Code", "search Cecil", "desc",1, "image", 20.00,1);
+        BookEntity b1 = new BookEntity(1L, "Clean Code", "test", "Robert Cecil", "desc", 1, "image", 20.00, 1);
+        BookEntity b2 = new BookEntity(1L, "Clean Code", "test", "search Cecil", "desc", 1, "image", 20.00, 1);
+        BookEntity b3 = new BookEntity(1L, "Clean Code", "test", "search Cecil", "desc", 1, "image", 20.00, 1);
         bookRepository.save(b1);
         bookRepository.save(b2);
         bookRepository.save(b3);
