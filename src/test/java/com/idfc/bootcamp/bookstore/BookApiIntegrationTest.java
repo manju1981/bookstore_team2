@@ -61,6 +61,20 @@ public class BookApiIntegrationTest {
     }
 
     @Test
+    @DisplayName("should return list of books when endpoint is accessed in descending order")
+    void shouldReturnListOfBooksWhenEndpointIsAccessedInDescendingOrder() {
+        BookEntity b1 = new BookEntity(1L,"Clean Code", "Robert Cecil","desc",1,"image",20.00,1);
+        BookEntity b2 = new BookEntity(2L,"Clean Code", "Robert Cecil","desc",5,"image",20.00,1);
+        bookRepository.deleteAll();
+        bookRepository.saveAll(Arrays.asList(b1, b2));
+        final List<BookEntity> books = restTemplate.exchange(baseUrl + "/book/fetch-all?page=1&size=10&sort=rating&descending=true", HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<BookEntity>>() {
+                }).getBody();
+        BookEntity book=books.get(0);
+        assertEquals(5,book.getRating());
+    }
+
+    @Test
     @DisplayName("should create a book and return the created book")
     void shouldCreateBookAndReturnCreatedBook() {
         BookDto bookDto = new BookDto(5L,"Clean Code", "Robert Cecil", "desc",1, "image", 20.00,1);

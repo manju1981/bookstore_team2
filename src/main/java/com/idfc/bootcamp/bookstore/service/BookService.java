@@ -37,6 +37,10 @@ public class BookService {
         return bookRepository.findAll(PageRequest.of(page - 1, offset, Sort.by(sort)));
     }
 
+    public Page<BookEntity> findBooksPageableDescending(int page, int offset,String sort) {
+        return bookRepository.findAll(PageRequest.of(page - 1, offset, Sort.by(sort).descending()));
+    }
+
     public BookEntity update(Long id, QuantityDto book) {
         Optional<BookEntity> existingBook = bookRepository.findById(id);
         if (existingBook.isPresent() && book.getQuantity() != 0) {

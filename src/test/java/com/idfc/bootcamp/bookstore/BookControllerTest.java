@@ -20,7 +20,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -47,6 +49,18 @@ public class BookControllerTest {
     }
 
     @Test
+    @DisplayName("should return the books in descending order")
+    void shouldReturnTheBooksInDescendingOrder() throws Exception {
+        BookEntity b1 = new BookEntity(1L,"Clean Code1", "Robert Cecil","desc",0,"image",20.00,1);
+        BookEntity b2 = new BookEntity(2L,"Clean Code2", "Robert Cecil","desc",1,"image",20.00,1);
+        Page<BookEntity> pagedTasks = new PageImpl(List.of(b2,b1));
+        when(bookRepository.findAll(PageRequest.of(0, 10,Sort.by("rating").descending()))).thenReturn(pagedTasks);
+        mockMvc.perform(get("/api/v1/book/fetch-all?page=1&size=10&sort=rating&descending=true")).
+                andExpect(MockMvcResultMatchers.jsonPath("$[0].rating").value(1)).
+                andExpect(MockMvcResultMatchers.jsonPath("$[1].rating").value(0));
+    }
+
+    @Test
     @DisplayName("should return two books")
     void shouldReturnTwoBooks() throws Exception {
         BookEntity b1 = new BookEntity(1L,"Clean Code", "Robert Cecil","desc",1,"image",20.00,1);
@@ -63,7 +77,7 @@ public class BookControllerTest {
         BookEntity b2 = new BookEntity(2L,"Clean Code2", "Robert Cecil","desc",1,"image",20.00,1);
         Page<BookEntity> pagedTasks = new PageImpl(List.of(b1,b2));
         when(bookRepository.findAll(PageRequest.of(0, 10,Sort.by("rating")))).thenReturn(pagedTasks);
-        mockMvc.perform(get("/api/v1/book/fetch-all?page=1&size=10&sort=rating")).
+        mockMvc.perform(get("/api/v1/book/fetch-all?page=1&size=10&sort=rating&descending=false")).
                 andExpect(MockMvcResultMatchers.jsonPath("$[0].title").value("Clean Code1")).
                 andExpect(MockMvcResultMatchers.jsonPath("$[1].title").value("Clean Code2"));
     }
@@ -77,7 +91,7 @@ public class BookControllerTest {
         mockMvc.perform(post("/api/v1/book/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(book)))
-                .andExpect(status().isOk());
+                    .andExpect(status().isOk());
     }
 
     @Test
@@ -136,6 +150,21 @@ public class BookControllerTest {
         String data="cle";
         when(bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase("c","c","c")).thenReturn(books);
         mockMvc.perform(get("/api/v1/book/search?data=c")).andExpect(jsonPath("$.length()").value(2));
+    }
+
+    @Test
+    @DisplayName("should not create a book when validation Error")
+    void shouldNotCreateABookWhenValidationError() throws Exception {
+        BookEntity book = new BookEntity(5L, "New Book", "", "Description",1, "Image", 29.99,1);
+        Map<String,String> response=new HashMap<String,String>();
+        response.put("author", "author should not be empty");
+
+        when(bookRepository.save(any())).thenReturn(response);
+
+        mockMvc.perform(post("/api/v1/book/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(book)))
+                .andExpect(status().is4xxClientError());
     }
 
 
