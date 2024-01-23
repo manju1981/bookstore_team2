@@ -1,7 +1,8 @@
 package com.idfc.bootcamp.bookstore.exceptions;
 
 public enum ApiErrors {
-    BOOK_ALREADY_EXIST("BOOK-001", "book already exist");
+    BOOK_ALREADY_EXIST("BOOK-001", "book already exist : %s"),
+    INVALID_PAGE("BOOK-002", "invalid page selected : %s");
     private final String code;
     private final String message;
 
