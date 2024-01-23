@@ -10,9 +10,6 @@ const Books = ({ books }) => {
                     <Card key={index} data={item} />
                 ))}
             </div>
-            <div className="pagination-wrapper">
-                <PaginationNavigation />
-            </div>
         </div>
     );
 };

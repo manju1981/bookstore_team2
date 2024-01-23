@@ -7,23 +7,35 @@ import PaginationNavigation from "./components/PaginationNavigation/PaginationNa
 
 function App() {
     const [books, setBooks] = useState([]);
-    const [currentPage, setCurrentPage] = useState();
-    const [totalPages, setTotalPages] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
-        fetch("http://localhost:8090/api/v1/book/fetch-all")
+        fetch(`http://localhost:8090/api/v1/book/fetch-all?page=${currentPage}&size=9`)
             .then((response) => response.json())
-            .then((data) => setBooks(data?.content))
+            .then((data) => {
+                setBooks(data?.content);
+                setCurrentPage(data?.currentPage);
+                setTotalPages(data?.totalPages);
+            })
             .catch((error) => console.error(error));
-    }, []);
+    }, [currentPage]);
+
+    const handlePageChange = (e, { activePage }) => {
+        setCurrentPage(activePage);
+    };
 
     return (
         <div className="App">
             <Header />
             <Books books={books} />
+            <PaginationNavigation
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
             <Footer />
         </div>
     );
 }
-
 export default App;

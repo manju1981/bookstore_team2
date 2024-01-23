@@ -9,7 +9,7 @@ const Card = ({ data }) => {
       <div className="card-lower-body">
         <label className="card-title">{data?.title}</label>
         <label className="card-author">{data?.author}</label>
-          <label className="card-description">{data?.description}</label>
+          <label className="card-description">Rs. {data?.price}</label>
       </div>
     </div>
   );
