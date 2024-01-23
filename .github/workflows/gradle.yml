@@ -17,32 +17,95 @@ permissions:
   contents: read
 
 jobs:
-  build:
-
+  Build-Backend:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: Set up node 18.12.1
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.12.1'
-          cache: 'npm'
-      - name: compile with Gradle
-        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-        with:
-          arguments: build
-      - name: package
-        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-        with:
-          arguments: bootjar
-      - name: upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: bookstore.jar
-          path: build/libs/bookstore-0.0.1-SNAPSHOT.jar
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: compile Backend
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      with:
+        arguments: compileJava
+
+  Build-Frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - uses: actions/checkout@v3
+    - name: Set up node 18.12.1
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.12.1'
+        cache: 'npm'
+    - name: compile Backend
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      with:
+        arguments: buildFrontend
+
+  Test-Backend:
+    needs: [ Build-Backend]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: compile with Gradle
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      with:
+        arguments: compileTestJava
+
+  Test-Frontend:
+    needs: [ Build-Frontend]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - uses: actions/checkout@v3
+    - name: Set up node 18.12.1
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.12.1'
+        cache: 'npm'
+    - name: compile with Gradle
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      with:
+        arguments: testFrontend
+
+  Package:
+    needs: [Test-Frontend, Test-Backend]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Set up node 18.12.1
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.12.1'
+        cache: 'npm'
+    - name: package
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      with:
+        arguments: bootjar
+    - name: upload artifact
+      uses: actions/upload-artifact@v3
+      with: 
+        name: bookstore-0.0.1-SNAPSHOT.jar
+        path: build/libs/bookstore-0.0.1-SNAPSHOT.jar

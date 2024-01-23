@@ -44,40 +44,31 @@ tasks.named('test') {
 }
 
 node {
-	//download = false
-	//version="18.12.1"
-	//npmVersion="9.2.0"
-	// identify working directory in project
 	workDir = file("${project.projectDir}/src/main/frontend-ui/bookstoreapp/nodejs")
-	// NPM work directory
 	npmWorkDir = file("${project.projectDir}/src/main/frontend-ui/bookstoreapp/npm")
-	// node modules directory
-	//nodeModulesDir = file("${project.projectDir}/src/main/frontend-ui/bookstoreapp/node_modules")
 }
 
-task appNpmInstall(type: NpmTask){
+task installFEDependencies(type: YarnTask){
 	description = " read packge.json and install all jars"
 	workingDir = file("${project.projectDir}/src/main/frontend-ui/bookstoreapp")
 	args =["install"]
 }
 
-task appNpmBuild(type: NpmTask){
+task buildFrontend(type: YarnTask, dependsOn: installFEDependencies){
 	description = "Builds applciation for your frontend "
 	workingDir = file("${project.projectDir}/src/main/frontend-ui/bookstoreapp")
-	args =["run", "build"]
+	args =["build"]
 }
 
-/*task appNpmInstall(type: NpmTask){
-	description = "Installs the NPM dependencies"
+task testFrontend(type: YarnTask, dependsOn: installFEDependencies){
+	description = "Builds applciation for your frontend "
 	workingDir = file("${project.projectDir}/src/main/frontend-ui/bookstoreapp")
-	args =["install"]
-}*/
+	args =["test", "--watchAll=false"]
+}
 
-task copyToFrontend(type: Copy){
+task copyFrontendFiles(type: Copy, dependsOn: buildFrontend){
 	from "${project.projectDir}/src/main/frontend-ui/bookstoreapp/build/"
 	into "${project.projectDir}/build/resources/main/static"
 }
 
-appNpmBuild.dependsOn appNpmInstall
-copyToFrontend.dependsOn appNpmBuild
-compileJava.dependsOn copyToFrontend
+bootJar.mustRunAfter copyFrontendFiles
