@@ -37,6 +37,7 @@ public class BookController {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.findById(id), BookDto.class));
     }
 
+    @CrossOrigin
     @GetMapping("/fetch-all")
     public ResponseEntity<PagedResponse<BookDto>> findBooksPageable(
             @RequestParam(defaultValue = "1") int page,

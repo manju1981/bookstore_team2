@@ -1,6 +1,9 @@
-describe("Show Details", () => {
-  it("should render the heading component", () => {
-    const { container } = render(<ShowDetails {...headingProps} />);
-    expect(container).toMatchSnapshot();
+import { render, screen } from "@testing-library/react";
+import Footer from "./Footer";
+
+describe("Footer Container", () => {
+  it("should render the footer", () => {
+    render(<Footer />);
+    expect(screen.getByTestId("Footer-test")).toBeInTheDocument();
   });
 });

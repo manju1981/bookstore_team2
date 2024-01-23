@@ -1,5 +1,10 @@
 @import '~semantic-ui-css/semantic.min.css';
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -8,6 +13,12 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
 }
 
 .App-logo {
@@ -40,6 +51,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -78,21 +90,6 @@
   background-color: white;
   height: auto;
 }
-
-/* .footer-container {
-  background-color: #262626;
-  display: flex;
-  flex-direction: row;
-  height: 50px;
-  width: 100%;
-  padding: 10px;
-  color: white;
-  align-items: center;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-} */
 
 .footer-container {
   display: flex;
@@ -144,15 +141,16 @@
   color: white;
   font-size: 16px;
 }
+
 .card-container {
   display: flex;
   border-radius: 5px;
   background-color: white;
   border: 1px solid #2626263b;
   flex-direction: column;
-  margin-right: 42px;
+  margin-right: 10px;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   width: 324px;
 }
 
@@ -165,7 +163,7 @@
   flex: 1;
   flex-direction: column;
   align-items: start;
-  padding: 9px 18px;
+  padding: 20px 18px;
 }
 
 .cord-collection-wrapper {
@@ -175,9 +173,9 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: flex-start;
-  margin-left: 13%;
-  margin-right: 13%;
-  margin-top: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 7%;
 }
 
 .card-img {
@@ -197,8 +195,16 @@
 }
 
 .card-author {
-  margin-top: 4px;
-  font-size: 16px;
-  color: black;
+  margin-top: 5px;
+  font-size: 14px;
+  color: grey;
   font-weight: 400;
+}
+.card-description {
+  margin-top: 5px;
+  text-align: left;
+  font-size: 14px;
+}
+.pagination-wrapper{
+  margin-top: 18px;
 }

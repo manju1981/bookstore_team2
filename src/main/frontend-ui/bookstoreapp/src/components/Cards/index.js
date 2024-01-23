@@ -9,6 +9,7 @@ const Card = ({ data }) => {
       <div className="card-lower-body">
         <label className="card-title">{data?.title}</label>
         <label className="card-author">{data?.author}</label>
+          <label className="card-description">{data?.description}</label>
       </div>
     </div>
   );
