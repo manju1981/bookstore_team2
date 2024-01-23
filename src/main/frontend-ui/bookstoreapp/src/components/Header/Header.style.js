@@ -19,10 +19,10 @@ const logoStyle = {
 };
 
 const textStyle = {
-  color: "#20bc54",
-  fontFamily: "Montserrat, sans-serif",
-  fontWeight: "bold",
-  fontSize: "2.0em",
+    color: '#fff',
+    fontFamily: 'Montserrat, sans-serif',
+    fontWeight: '300',
+    fontSize: '1.7em',
 };
 
 const searchContainerStyle = {

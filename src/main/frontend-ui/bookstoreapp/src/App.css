@@ -91,6 +91,37 @@ html, body {
   height: auto;
 }
 
+.footer-container {
+  display: flex;
+  background-color: #262626;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.footer-text {
+  display: flex;
+  flex: 1;
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #6ca12b;
+}
+
+.action-icons {
+  flex-direction: row;
+}
+
+.action-icon {
+  width: 35px;
+  height: 35px;
+  margin-right: 20px;
+}
+
 .search-container {
   width: 90%;
   height: auto;
@@ -117,9 +148,9 @@ html, body {
   background-color: white;
   border: 1px solid #2626263b;
   flex-direction: column;
-  margin-right: 42px;
+  margin-right: 10px;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   width: 324px;
 }
 
@@ -132,7 +163,7 @@ html, body {
   flex: 1;
   flex-direction: column;
   align-items: start;
-  padding: 9px 18px;
+  padding: 20px 18px;
 }
 
 .cord-collection-wrapper {
@@ -142,9 +173,9 @@ html, body {
   flex-direction: row;
   justify-content: space-around;
   align-items: flex-start;
-  margin-left: 13%;
-  margin-right: 13%;
-  margin-top: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 7%;
 }
 
 .card-img {
@@ -164,8 +195,16 @@ html, body {
 }
 
 .card-author {
-  margin-top: 4px;
-  font-size: 16px;
-  color: black;
+  margin-top: 5px;
+  font-size: 14px;
+  color: grey;
   font-weight: 400;
+}
+.card-description {
+  margin-top: 5px;
+  text-align: left;
+  font-size: 14px;
+}
+.pagination-wrapper{
+  margin-top: 18px;
 }

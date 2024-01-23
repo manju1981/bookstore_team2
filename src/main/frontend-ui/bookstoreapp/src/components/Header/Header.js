@@ -1,6 +1,6 @@
 import React from "react";
 import { Header as HeaderComponent, Image } from "semantic-ui-react";
-import logo from "../../assets/book_logo.png";
+import logo from "../../assets/new_Logo.png";
 import Search from "../Search/Search";
 import {
   headerStyle,
