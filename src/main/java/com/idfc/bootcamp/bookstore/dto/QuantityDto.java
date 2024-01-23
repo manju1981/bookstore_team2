@@ -1,6 +1,7 @@
 package com.idfc.bootcamp.bookstore.dto;
 
 import com.idfc.bootcamp.bookstore.enums.Type;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 @NoArgsConstructor
@@ -9,6 +10,7 @@ import lombok.*;
 @Setter
 @ToString
 public class QuantityDto {
+    @Min(1)
     private int quantity;
     private Type type;
 }

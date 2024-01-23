@@ -50,7 +50,7 @@ public class BookController {
 
 
     @PostMapping("/update-quantity/{id}")
-    public ResponseEntity<BookDto> updateBook(@PathVariable(value = "id") Long id, @RequestBody QuantityDto dto) throws Exception {
+    public ResponseEntity<BookDto> updateBook(@PathVariable(value = "id") Long id, @RequestBody @Valid QuantityDto dto) throws Exception {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.update(id,dto), BookDto.class));
     }
 }
