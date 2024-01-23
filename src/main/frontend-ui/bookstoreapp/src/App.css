@@ -1,5 +1,10 @@
 @import '~semantic-ui-css/semantic.min.css';
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -8,6 +13,12 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
 }
 
 .App-logo {
@@ -40,6 +51,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -100,7 +112,7 @@
   flex-direction: row;
   align-items: center;
   padding: 10px;
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   left: 0;
   right: 0;
@@ -144,6 +156,7 @@
   color: white;
   font-size: 16px;
 }
+
 .card-container {
   display: flex;
   border-radius: 5px;
