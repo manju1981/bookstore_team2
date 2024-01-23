@@ -40,7 +40,7 @@ public class BookService {
     public BookEntity update(Long id, QuantityDto book) {
         Optional<BookEntity> existingBook = bookRepository.findById(id);
         if (existingBook.isPresent() && book.getQuantity() != 0) {
-            if (Type.BUY.equals(book.getType())) {
+            if (Type.ADD.equals(book.getType())) {
                 existingBook.get().setQuantity(book.getQuantity() + existingBook.get().getQuantity());
             } else if(existingBook.get().getQuantity() - book.getQuantity() >= 0) {
                 existingBook.get().setQuantity(existingBook.get().getQuantity() - book.getQuantity());

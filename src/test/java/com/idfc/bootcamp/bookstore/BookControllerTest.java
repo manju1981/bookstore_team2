@@ -102,13 +102,29 @@ public class BookControllerTest {
         BookEntity existingBook = new BookEntity(5L, "New Book", "John Doe", "Description", 1,"Image", 29.99, 1);
         when(bookRepository.findById(5L)).thenReturn(Optional.of(existingBook));
 
-        QuantityDto quantity = new QuantityDto(5, Type.BUY);
+        QuantityDto quantity = new QuantityDto(5, Type.ADD);
         // When
         mockMvc.perform(post("/api/v1/book/update-quantity/5")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(quantity)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.quantity").value(6));
+    }
+
+    @Test
+    @DisplayName("should update the existing book and its quantity and sell")
+    void shouldUpdateTheExistingBookAndItsQuantitySell() throws Exception {
+        // Given
+        BookEntity existingBook = new BookEntity(5L, "New Book", "John Doe", "Description", 1,"Image", 29.99, 15);
+        when(bookRepository.findById(5L)).thenReturn(Optional.of(existingBook));
+
+        QuantityDto quantity = new QuantityDto(5, Type.REMOVE);
+        // When
+        mockMvc.perform(post("/api/v1/book/update-quantity/5")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(quantity)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.quantity").value(10));
     }
 
     @Test
