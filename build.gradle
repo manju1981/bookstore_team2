@@ -44,9 +44,9 @@ tasks.named('test') {
 }
 
 node {
-	download = true
-	version="18.12.1"
-	npmVersion="9.2.0"
+	//download = false
+	//version="18.12.1"
+	//npmVersion="9.2.0"
 	// identify working directory in project
 	workDir = file("${project.projectDir}/src/main/frontend-ui/bookstoreapp/nodejs")
 	// NPM work directory
