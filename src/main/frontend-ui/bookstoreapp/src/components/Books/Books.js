@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Card from "../Cards";
 import PaginationNavigation from "../PaginationNavigation/PaginationNavigation";
 const Books = ({ books }) => {
-    // Move the state declaration inside the functional component
-    const [booksState, setBooksState] = useState([]);
 
     return (
         <div className="body-container">

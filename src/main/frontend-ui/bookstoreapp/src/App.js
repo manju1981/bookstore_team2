@@ -17,8 +17,6 @@ function App() {
             .catch((error) => console.error(error));
     }, []);
 
-    console.log('books', books);
-
     return (
         <div className="App">
             <Header />
