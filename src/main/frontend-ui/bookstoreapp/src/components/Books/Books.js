@@ -1,9 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../Cards";
 import PaginationNavigation from "../PaginationNavigation/PaginationNavigation";
 
-const Books = ({ books,setSortCriterion,handleSortAsc,handleSortDesc}) => {
+const Books = () => {
+
+    const [books, setBooks] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [sortCriterion, setSortCriterion] = useState('title');
+    const [sortDirection,setSortDirection] =useState('false');
+
+    useEffect(() => {
+        fetch(`http://localhost:8090/api/v1/books/fetch-all?page=${currentPage}&size=9&sort=${sortCriterion}&descending=${sortDirection}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setBooks(data?.content);
+                setCurrentPage(data?.currentPage);
+                setTotalPages(data?.totalPages);
+            })
+            .catch((error) => console.error(error));
+    }, [currentPage,sortCriterion,sortDirection]);
+
+    const handlePageChange = (e, { activePage }) => {
+        setCurrentPage(activePage);
+    };
+     const handleSortAsc = () => {
+      setSortDirection('false');
+     };
+     const handleSortDesc = () => {
+      setSortDirection('true');
+     };
+
     return (
         <div className="body-container">
             <div className="button-container">
@@ -20,6 +48,12 @@ const Books = ({ books,setSortCriterion,handleSortAsc,handleSortDesc}) => {
                   </Link>
                 ))}
             </div>
+            <PaginationNavigation
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
+  
         </div>
     );
 };
