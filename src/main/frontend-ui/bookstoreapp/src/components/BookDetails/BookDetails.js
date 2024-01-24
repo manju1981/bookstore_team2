@@ -47,30 +47,36 @@ const BookDetails = () => {
         <div style={Container}>
             <Image style={ImageContainer} src={bookDetails.img} size="large" floated="left" />
             <div style={DetailsContatiner}>
+            <div>
                 <Header style={{ fontSize: "40px" }} textAlign="left" as="h1">
                     {bookDetails.title}
                     <Header style={{ fontSize: "20px", marginTop: "0.5rem" }} as="h4">
                         {bookDetails.author}
                         <HeaderSubheader style={{ fontSize: "18px", marginTop: "2rem" }} as="h4">
-                            {bookDetails.desc}
+                            {bookDetails.description}
                         </HeaderSubheader>
+                        <div>
+                       <label>Rs. {bookDetails?.price}</label>
+                       </div>
                     </Header>
                 </Header>
-
-                <Dropdown
-                    placeholder="Select your country"
-                    options={countryOptions}
-                    search
-                    selection
-                    data-testid="country-dropdown"
-                    style={{ marginTop: "1rem" }}
-                />
-                <Button circular={true} size="large" style={ButtonContainer} animated="horizontal">
-                    <ButtonContent hidden>BUY</ButtonContent>
-                    <ButtonContent visible>
-                        <Icon name="shop" />
-                    </ButtonContent>
-                </Button>
+            </div>
+            <div>
+                 <Dropdown
+                 placeholder="Select your country"
+                 options={countryOptions}
+                 search
+                 selection
+                 data-testid="country-dropdown"
+                 style={{ marginTop: "1rem" }}
+                 />
+                 <Button circular={true} size="large" style={ButtonContainer} animated="horizontal">
+                 <ButtonContent hidden>BUY</ButtonContent>
+                 <ButtonContent visible>
+                 <Icon name="shop" />
+                 </ButtonContent>
+                 </Button>
+            </div>
             </div>
         </div>
     );
