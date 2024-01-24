@@ -234,6 +234,26 @@ public class BookControllerTest {
                 .andExpect(content().json("[]"));
     }
 
+    @Test
+    @DisplayName("should return error when page number is in valid")
+    void shouldReturnErrorWhenPageNumberIsInvalid() throws Exception {
+        mockMvc.perform(get("/api/v1/books/fetch-all?page=-1&size=10&sort=rating&descending=false")).
+                andExpect(status().is4xxClientError());
+    }
+
+
+
+    @Test
+    @DisplayName("should show error when quantity is o")
+    void shouldThrowErrorWhenQuantityIs0() throws Exception {
+        QuantityDto quantity = new QuantityDto(1, Type.REMOVE);
+        // When
+        mockMvc.perform(post("/api/v1/books/update-quantity/5")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(quantity)))
+                .andExpect(status().is4xxClientError());
+    }
+
 
     @AfterEach
     @DisplayName("delete books")
