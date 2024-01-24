@@ -1,33 +1,83 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import BookDetails from "./BookDetails";
+import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import BookDetails from './BookDetails';
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useParams: () => ({ id: "1" }), 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: jest.fn(),
 }));
 
-describe("BookDetails Component", () => {
-  it("renders book details correctly", () => {
-    render(<BookDetails />);
-
-    expect(screen.getByText("Atomic Habits")).toBeInTheDocument();
-    expect(screen.getByText("James Clear")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Atomic Habits by James Clear is a comprehensive, practical guide on how to change your habits and get 1% better every day. Using a framework called the Four Laws of Behavior Change, Atomic Habits teaches readers a simple set of rules for creating good habits and breaking bad ones. Read the full summary to glean 3 key lessons from Atomic Habits, learn how to build a habit in 4 simple steps, and get a handy reference guide for the strategies recommended throughout the book."
-      )
-    ).toBeInTheDocument();
-
-    expect(screen.getByTestId("country-dropdown")).toBeInTheDocument();
-    expect(screen.getByText("BUY")).toBeInTheDocument();
+describe('BookDetails Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  it("handles user interaction", () => {
-    render(<BookDetails />);
+  it('renders book details correctly', async () => {
+    // Mock the fetch function to return mock data
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue({
+        img: 'mock-image-url',
+        title: 'Atomic Habits',
+        author: 'James Clear',
+        description: 'Mock description',
+        price: 20.0,
+      }),
+    });
 
-    userEvent.click(screen.getByText("BUY"));
+    // Mock useParams to return a mock ID
+    jest.spyOn(require('react-router-dom'), 'useParams').mockReturnValue({ id: '1' });
 
+    render(
+      <MemoryRouter initialEntries={['/book/1']}>
+        <Routes>
+          <Route path="/book/:id" element={<BookDetails />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    // Wait for the asynchronous operation to complete
+    await waitFor(() => {
+      expect(screen.getByText('Atomic Habits')).toBeInTheDocument();
+      expect(screen.getByText('James Clear')).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          'Mock description'
+        )
+      ).toBeInTheDocument();
+      expect(screen.getByTestId('country-dropdown')).toBeInTheDocument();
+      expect(screen.getByText('BUY')).toBeInTheDocument();
+    });
+  });
+
+  it('handles user interaction', async () => {
+    // Mock the fetch function to return mock data
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue({
+        img: 'mock-image-url',
+        title: 'Atomic Habits',
+        author: 'James Clear',
+        description: 'Mock description',
+        price: 20.0,
+      }),
+    });
+
+    // Mock useParams to return a mock ID
+    jest.spyOn(require('react-router-dom'), 'useParams').mockReturnValue({ id: '1' });
+
+    render(
+      <MemoryRouter initialEntries={['/book/1']}>
+        <Routes>
+          <Route path="/book/:id" element={<BookDetails />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    // Wait for the asynchronous operation to complete
+    await waitFor(() => {
+      userEvent.click(screen.getByText('BUY'));
+      // Add your user interaction assertions here
+    });
   });
 });
