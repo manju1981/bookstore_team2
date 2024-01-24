@@ -40,6 +40,7 @@ tasks.named('test') {
          'junit.jupiter.execution.parallel.mode.default': 'same_thread',
          'junit.jupiter.execution.parallel.mode.classes.default': 'concurrent',
    ])
+	finalizedBy jacocoTestCoverageVerification
 }
 
 node {
@@ -69,6 +70,22 @@ task copyFrontendFiles(type: Copy, dependsOn: [buildFrontend, resolveMainClassNa
 	from "${project.projectDir}/src/main/frontend-ui/bookstoreapp/build/"
 	into "${project.projectDir}/build/resources/main/static"
 }
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				counter = 'LINE'
+				minimum = 0.87
+			}
+			limit {
+				counter = 'BRANCH'
+				minimum = 0.8
+			}
+		}
+	}
+}
+jacocoTestCoverageVerification.dependsOn jacocoTestReport
 
 task buildJar(type: Jar) {
 	dependsOn copyFrontendFiles
