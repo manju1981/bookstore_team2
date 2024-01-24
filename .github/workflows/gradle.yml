@@ -69,6 +69,11 @@ jobs:
       with:
         name: backend code coverage
         path: build/reports/jacoco/**
+    - name: Check coverage
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      with:
+        arguments: jacocoTestCoverageVerification
+
 
   Test-Frontend:
     needs: [ Build-Frontend]
