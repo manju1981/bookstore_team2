@@ -61,15 +61,15 @@ public class BookControllerTest {
         BookEntity b1 = new BookEntity(1L,"Clean Code1","test",  "Robert Cecil","desc",0,"image",20.00,1);
         BookEntity b2 = new BookEntity(2L,"Clean Code2", "test", "Robert Cecil","desc",1,"image",20.00,1);
         Page<BookEntity> pagedTasks = new PageImpl(List.of(b2,b1));
-        when(bookRepository.findAll(PageRequest.of(0, 10,Sort.by("rating").descending()))).thenReturn(pagedTasks);
+        when(bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase("","","",PageRequest.of(0, 10,Sort.by("rating").descending()))).thenReturn(pagedTasks);
         mockMvc.perform(get("/api/v1/books/fetch-all?page=1&size=10&sort=rating&descending=true")).
                 andExpect(MockMvcResultMatchers.jsonPath("content[0].rating").value(1)).
                 andExpect(MockMvcResultMatchers.jsonPath("content[1].rating").value(0));
     }
 
     @Test
-    @DisplayName("should return two books")
-    void shouldReturnTwoBooks() throws Exception {
+    @DisplayName("should return six books")
+    void shouldReturnSixBooks() throws Exception {
         BookEntity b1 = new BookEntity(1L,"Clean Code","test", "Robert Cecil","desc",1,"image",20.00,1);
         BookEntity b2 = new BookEntity(2L,"Clean Code", "test","Robert Cecil","desc",1,"image",20.00,1);
         BookEntity b3 = new BookEntity(1L,"Clean Code","test", "Robert Cecil","desc",1,"image",20.00,1);
@@ -77,7 +77,7 @@ public class BookControllerTest {
         BookEntity b5 = new BookEntity(1L,"Clean Code","test", "Robert Cecil","desc",1,"image",20.00,1);
         BookEntity b6 = new BookEntity(2L,"Clean Code", "test","Robert Cecil","desc",1,"image",20.00,1);
         Page<BookEntity> pagedTasks = new PageImpl(List.of(b1,b2,b1,b2,b1,b2));
-        when(bookRepository.findAll(PageRequest.of(0, 10, Sort.by("title")))).thenReturn(pagedTasks);
+        when(bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase("","","",PageRequest.of(0, 10, Sort.by("title")))).thenReturn(pagedTasks);
         mockMvc.perform(get("/api/v1/books/fetch-all")).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(6));
     }
 
@@ -107,7 +107,7 @@ public class BookControllerTest {
         BookEntity b1 = new BookEntity(1L,"Clean Code1","test", "Robert Cecil","desc",0,"image",20.00,1);
         BookEntity b2 = new BookEntity(2L,"Clean Code2", "test","Robert Cecil","desc",1,"image",20.00,1);
         Page<BookEntity> pagedTasks = new PageImpl(List.of(b1,b2));
-        when(bookRepository.findAll(PageRequest.of(0, 10,Sort.by("rating")))).thenReturn(pagedTasks);
+        when(bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase("","","",PageRequest.of(0, 10,Sort.by("rating")))).thenReturn(pagedTasks);
         mockMvc.perform(get("/api/v1/books/fetch-all?page=1&size=10&sort=rating&descending=false")).
                 andExpect(MockMvcResultMatchers.jsonPath("content[0].title").value("Clean Code1")).
                 andExpect(MockMvcResultMatchers.jsonPath("content[1].title").value("Clean Code2"));
@@ -122,7 +122,7 @@ public class BookControllerTest {
         mockMvc.perform(post("/api/v1/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(book)))
-                    .andExpect(status().isOk());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -172,16 +172,6 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.quantity").value(10));
     }
 
-    @Test
-    @DisplayName("should return two books which matches the search")
-    void shouldReturnTwoBooksWhichMatchesTheSearch() throws Exception {
-        BookEntity b1 = new BookEntity(1L,"Clean Code","test", "Robert Cecil","desc",1,"image",20.00,1);
-        BookEntity b2 = new BookEntity(2L,"Clean Code","test", "Robert Cecil","desc",1,"image",20.00,1);
-        List<BookEntity> books=List.of(b1,b2);
-        String data="cle";
-        when(bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase("c","c","c")).thenReturn(books);
-        mockMvc.perform(get("/api/v1/books?search=c")).andExpect(jsonPath("$.length()").value(2));
-    }
 
     @Test
     @DisplayName("should not create a book when validation Error")

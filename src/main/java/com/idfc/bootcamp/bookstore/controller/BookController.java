@@ -2,6 +2,7 @@ package com.idfc.bootcamp.bookstore.controller;
 
 import com.idfc.bootcamp.bookstore.dto.BookDto;
 import com.idfc.bootcamp.bookstore.dto.PagedResponse;
+import com.idfc.bootcamp.bookstore.dto.SearchCriteria;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.dto.QuantityDto;
 import com.idfc.bootcamp.bookstore.exceptions.ApplicationException;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,28 +40,23 @@ public class BookController {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.findById(id), BookDto.class));
     }
 
-    @CrossOrigin
     @GetMapping("/fetch-all")
     public ResponseEntity<PagedResponse<BookDto>> findBooksPageable(
+            @RequestParam(defaultValue = "") String search,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "title") String sort,
             @RequestParam(defaultValue = "false") Boolean descending) {
-        if(descending) {
-            return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageableDescending(page, size, sort), BookDto.class));
-
-        }
-        return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(page, size, sort), BookDto.class));
+        return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(search,page, size, sort,descending), BookDto.class));
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<BookEntity>> searchBooks(
-            @RequestParam() String search) {
-        return ResponseEntity.ok(bookService.searchBooks(search));
-    }
 
     @PostMapping("/update-quantity/{id}")
     public ResponseEntity<BookDto> updateBook(@PathVariable(value = "id") Long id, @RequestBody @Valid QuantityDto dto) throws Exception {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.update(id, dto), BookDto.class));
+    }
+    @PostMapping("/filter")
+    public ResponseEntity<List<BookDto>> findByField(@Valid @RequestBody SearchCriteria searchCriteria) {
+        return ResponseEntity.ok(MapperUtility.mapList(bookService.findByField(searchCriteria.getFieldName(), searchCriteria.getFieldValue()),BookDto.class));
     }
 }

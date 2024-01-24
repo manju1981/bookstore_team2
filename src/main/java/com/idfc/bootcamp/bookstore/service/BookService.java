@@ -14,8 +14,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -63,6 +65,12 @@ public class BookService {
         return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data,data,data,PageRequest.of(page - 1, offset, Sort.by(sort)));
     }
 
+    public Page<BookEntity> findBooksPageableDescending(int page, int offset, String sort) {
+        if (page - 1 < 0) {
+            throw new ApplicationException(ApiErrors.INVALID_PAGE, page);
+        }
+        return bookRepository.findAll(PageRequest.of(page - 1, offset, Sort.by(sort).descending()));
+    }
 
     public BookEntity update(Long id, QuantityDto book) {
         Optional<BookEntity> existingBook = bookRepository.findById(id);
@@ -78,4 +86,11 @@ public class BookService {
         return new BookEntity();
     }
 
+    public List<BookEntity> findByField(String fieldName, String fieldValue) {
+        List<BookEntity> byField = bookRepository.findByField(fieldName, fieldValue);
+        if (byField.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return byField;
+    }
 }
