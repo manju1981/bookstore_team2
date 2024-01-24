@@ -11,9 +11,11 @@ function App() {
     const [books, setBooks] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [sortCriterion, setSortCriterion] = useState('title');
+    const [sortDirection,setSortDirection] =useState('false');
 
     useEffect(() => {
-        fetch(`http://localhost:8090/api/v1/books/fetch-all?page=${currentPage}&size=9`)
+        fetch(`http://localhost:8090/api/v1/books/fetch-all?page=${currentPage}&size=9&sort=${sortCriterion}&descending=${sortDirection}`)
             .then((response) => response.json())
             .then((data) => {
                 setBooks(data?.content);
@@ -21,19 +23,30 @@ function App() {
                 setTotalPages(data?.totalPages);
             })
             .catch((error) => console.error(error));
-    }, [currentPage]);
+    }, [currentPage,sortCriterion,sortDirection]);
 
     const handlePageChange = (e, { activePage }) => {
         setCurrentPage(activePage);
     };
-
-
+//    const handleSortChange = (event) => {
+//        setSortCriterion(event.target.value);
+//     };
+     const handleSortAsc = () => {
+      setSortDirection('false');
+     };
+     const handleSortDesc = () => {
+      setSortDirection('true');
+     };
     return (
       <Router>
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/" element={<Books books={books} />} />
+          <Route path="/" element={<Books books={books}
+          setSortCriterion={setSortCriterion}
+          handleSortAsc={handleSortAsc}
+          handleSortDesc={handleSortDesc}
+          />}/>
           <Route path="/books" element={<Books books={books} />} />
           <Route path="/book/:id" element={<BookDetails />} />
         </Routes>
