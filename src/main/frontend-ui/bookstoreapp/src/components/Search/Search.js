@@ -1,78 +1,76 @@
-import React from "react";
-import { Search as SemanticSearch } from "semantic-ui-react";
+import React, { useEffect, useState } from "react";
+import { Search as SemanticSearch, Image } from "semantic-ui-react";
+import { useNavigate } from "react-router-dom";
+import _ from "lodash";
 
 const Search = () => {
-  const initialState = {
-    loading: false,
-    results: [],
-    value: "",
-  };
+  const [books, setBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
-  const exampleReducer = (state, action) => {
-    switch (action.type) {
-      case "CLEAN_QUERY":
-        return initialState;
-      case "START_SEARCH":
-        return { ...state, loading: true, value: action.query };
-      case "FINISH_SEARCH":
-        return { ...state, loading: false, results: action.results };
-      case "UPDATE_SELECTION":
-        return { ...state, value: action.selection };
-      default:
-        throw new Error();
-    }
-  };
+  const handleSearchChange = (e, { value }) => {
+    setSearchQuery(value);
+    setIsLoading(true);
 
-  const [state, dispatch] = React.useReducer(exampleReducer, initialState);
-  const { loading, results, value } = state;
-
-  const timeoutRef = React.useRef();
-
-  const handleSearchChange = React.useCallback((e, data) => {
-    clearTimeout(timeoutRef.current);
-    dispatch({ type: "START_SEARCH", query: data.value });
-
-    timeoutRef.current = setTimeout(() => {
-      if (data.value.length === 0) {
-        dispatch({ type: "CLEAN_QUERY" });
+    // Use lodash debounce to delay the execution of the fetch request
+    const debouncedSearch = _.debounce(() => {
+      if (value.length === 0) {
+        setSearchResults([]);
+        setIsLoading(false);
         return;
       }
 
-      const re = new RegExp(RegExp.escape(data.value), "i");
-      const isMatch = (result) => re.test(result.title);
-
-      // Define 'source' variable (dummy data for example)
-      const source = Array.from({ length: 5 }, (_, index) => ({
-        title: `Result ${index + 1}`,
-        description: `Description for result ${index + 1}`,
-        // Add other properties as needed
-      }));
-
-      dispatch({
-        type: "FINISH_SEARCH",
-        results: source.filter(isMatch),
-      });
+      fetch(`http://localhost:8090/api/v1/books/fetch-all?search=${value}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setBooks(data?.content);
+            setSearchResults(data?.content);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.error(error);
+            setIsLoading(false);
+          });
     }, 300);
-  }, []);
 
-  React.useEffect(() => {
+    debouncedSearch();
+
     return () => {
-      clearTimeout(timeoutRef.current);
+      // Cleanup function to clear the debounce timer
+      debouncedSearch.cancel();
     };
-  }, []);
+  };
+
+  const handleResultSelect = (e, { result }) => {
+    setSearchQuery(result.title);
+    console.log(result)
+    navigate(`/book/${result.id}`);
+  };
 
   return (
-    <SemanticSearch
-      data-testid="Search-container"
-      loading={loading}
-      placeholder="Search books..."
-      onResultSelect={(e, data) =>
-        dispatch({ type: "UPDATE_SELECTION", selection: data.result.title })
-      }
-      onSearchChange={handleSearchChange}
-      results={results}
-      value={value}
-    />
+      <SemanticSearch
+          data-testid="Search-container"
+          loading={isLoading}
+          placeholder="Search books..."
+          onResultSelect={handleResultSelect}
+          onSearchChange={handleSearchChange}
+          results={searchResults.map((book) => ({
+            title: book.title,
+            img: book.img,
+            price: book.price,
+            id: book.id
+          }))}
+          resultRenderer={({ title, img, price }) => (
+              <div>
+                <Image src={img} size="tiny" spaced="right" />
+                <div>{title}</div>
+                <div>{`Price: ${price}`}</div>
+              </div>
+          )}
+          value={searchQuery}
+      />
   );
 };
 
