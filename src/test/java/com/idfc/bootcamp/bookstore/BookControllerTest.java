@@ -34,8 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
 public class BookControllerTest {
@@ -187,6 +186,7 @@ public class BookControllerTest {
     }
 
     @Test
+    @DisplayName("test find by field")
     public void testFindByField() throws Exception {
         // Arrange
         String fieldName = "title";
@@ -210,6 +210,30 @@ public class BookControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].title", is(book.getTitle())));
     }
+
+    @Test
+    @DisplayName("test find by field not found")
+    public void testFindByFieldIfNotFound() throws Exception {
+        // Arrange
+        String fieldName = "title";
+        String fieldValue = "test";
+        when(bookRepository.findByField(fieldName, fieldValue)).thenReturn(new ArrayList<>());
+
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.setFieldName(fieldName);
+        searchCriteria.setFieldValue(fieldValue);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonSearchCriteria = mapper.writeValueAsString(searchCriteria);
+
+        // Act and Assert
+        mockMvc.perform(post("/api/v1/books/filter")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonSearchCriteria))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
+    }
+
 
     @AfterEach
     @DisplayName("delete books")

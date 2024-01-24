@@ -17,7 +17,6 @@ import java.util.UUID;
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
-
     @ExceptionHandler(ApplicationException.class)
     public ResponseEntity<?> handleApplicationException(
             final ApplicationException exception, final HttpServletRequest request
@@ -33,6 +32,4 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         );
         return new ResponseEntity<>(response, exception.getHttpStatus());
     }
-
-
 }

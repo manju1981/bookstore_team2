@@ -55,35 +55,27 @@ public class BookService {
         return MapperUtility.convertClass(bookRepository.findById(id), BookEntity.class);
     }
 
-    public Page<BookEntity> findBooksPageable(String data,int page, int offset, String sort,boolean order) {
+    public Page<BookEntity> findBooksPageable(String data, int page, int offset, String sort, boolean order) {
         if (page - 1 < 0) {
             throw new ApplicationException(ApiErrors.INVALID_PAGE, page);
         }
-        if(order){
-            return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data,data,data,PageRequest.of(page - 1, offset, Sort.by(sort).descending()));
+        if (order) {
+            return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data, data, data, PageRequest.of(page - 1, offset, Sort.by(sort).descending()));
         }
-        return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data,data,data,PageRequest.of(page - 1, offset, Sort.by(sort)));
+        return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data, data, data, PageRequest.of(page - 1, offset, Sort.by(sort)));
     }
-
-    public Page<BookEntity> findBooksPageableDescending(int page, int offset, String sort) {
-        if (page - 1 < 0) {
-            throw new ApplicationException(ApiErrors.INVALID_PAGE, page);
-        }
-        return bookRepository.findAll(PageRequest.of(page - 1, offset, Sort.by(sort).descending()));
-    }
-
     public BookEntity update(Long id, QuantityDto book) {
         Optional<BookEntity> existingBook = bookRepository.findById(id);
-        if (existingBook.isPresent() && book.getQuantity() != 0) {
-            if (Type.ADD.equals(book.getType())) {
-                existingBook.get().setQuantity(book.getQuantity() + existingBook.get().getQuantity());
-            } else if (existingBook.get().getQuantity() - book.getQuantity() >= 0) {
-                existingBook.get().setQuantity(existingBook.get().getQuantity() - book.getQuantity());
-            }
-            bookRepository.save(existingBook.get());
-            return existingBook.get();
+        if (existingBook.isEmpty() || book.getQuantity() == 0) {
+            throw new ApplicationException(ApiErrors.BOOK_NOT_FOUND, id);
         }
-        return new BookEntity();
+        if (Type.ADD.equals(book.getType())) {
+            existingBook.get().setQuantity(book.getQuantity() + existingBook.get().getQuantity());
+        } else if (existingBook.get().getQuantity() - book.getQuantity() >= 0) {
+            existingBook.get().setQuantity(existingBook.get().getQuantity() - book.getQuantity());
+        }
+        bookRepository.save(existingBook.get());
+        return existingBook.get();
     }
 
     public List<BookEntity> findByField(String fieldName, String fieldValue) {
