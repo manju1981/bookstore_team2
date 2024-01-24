@@ -64,7 +64,9 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: test
-    - name: public coverage report
+    - name: Generate coverage report
+      run: formatReportSumary.sh >> $GITHUB_STEP_SUMMARY
+    - name: publish coverage report
       uses: actions/upload-artifact@v3
       with:
         name: backend code coverage
