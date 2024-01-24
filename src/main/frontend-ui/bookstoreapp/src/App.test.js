@@ -1,6 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import React from "react";
+import { render, screen } from "@testing-library/react";
 import App from "./App";
+
 
 
 const books = [
@@ -77,4 +80,16 @@ test("renders bookstore application", () => {
 expect(screen.getByTestId("Header-test")).toBeInTheDocument();
 expect(screen.getByTestId("Books-test")).toBeInTheDocument();
 expect(screen.getByTestId("Footer-test")).toBeInTheDocument();
+  // render(<MemoryRouter>
+  //       <Header/>
+  //       </MemoryRouter>);
+  // render(<MemoryRouter>
+  //       <Books books={books}/>
+  //       </MemoryRouter>);
+  // render(<MemoryRouter>
+  //       <App/>
+  //       </MemoryRouter>);
+  // render(<MemoryRouter>
+  //       <Footer/>
+  //       </MemoryRouter>);
 });
