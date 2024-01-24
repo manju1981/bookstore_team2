@@ -1,5 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import Books from "./Books";
+
 const books = [
   {
     "id": 1,
@@ -68,13 +70,18 @@ const books = [
     "quantity": 0
   }
 ]
+
 describe("Books Container", () => {
   beforeEach(() => {});
   afterEach(() => {
     jest.clearAllMocks();
   });
   it("should render the list of books", () => {
-    render(<Books books={books}/>);
+    render(
+      <MemoryRouter>
+        <Books books={books}/>
+      </MemoryRouter>
+    );
     expect(screen.getByTestId("Books-test")).toBeInTheDocument();
   });
 });
