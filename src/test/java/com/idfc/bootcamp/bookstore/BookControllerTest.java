@@ -52,7 +52,7 @@ public class BookControllerTest {
     @Test
     @DisplayName("should return success http status")
     void shouldReturnSuccessHttpStatus() throws Exception {
-        mockMvc.perform(get("/api/v1/book/fetch-all")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/v1/books/fetch-all")).andExpect(status().isOk());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class BookControllerTest {
         BookEntity b2 = new BookEntity(2L,"Clean Code2", "test", "Robert Cecil","desc",1,"image",20.00,1);
         Page<BookEntity> pagedTasks = new PageImpl(List.of(b2,b1));
         when(bookRepository.findAll(PageRequest.of(0, 10,Sort.by("rating").descending()))).thenReturn(pagedTasks);
-        mockMvc.perform(get("/api/v1/book/fetch-all?page=1&size=10&sort=rating&descending=true")).
+        mockMvc.perform(get("/api/v1/books/fetch-all?page=1&size=10&sort=rating&descending=true")).
                 andExpect(MockMvcResultMatchers.jsonPath("content[0].rating").value(1)).
                 andExpect(MockMvcResultMatchers.jsonPath("content[1].rating").value(0));
     }
@@ -78,7 +78,7 @@ public class BookControllerTest {
         BookEntity b6 = new BookEntity(2L,"Clean Code", "test","Robert Cecil","desc",1,"image",20.00,1);
         Page<BookEntity> pagedTasks = new PageImpl(List.of(b1,b2,b1,b2,b1,b2));
         when(bookRepository.findAll(PageRequest.of(0, 10, Sort.by("title")))).thenReturn(pagedTasks);
-        mockMvc.perform(get("/api/v1/book/fetch-all")).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(6));
+        mockMvc.perform(get("/api/v1/books/fetch-all")).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(6));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class BookControllerTest {
         // Mock the behavior of bookRepository.findById to return a non-null value
         when(bookRepository.findById(existingBookId)).thenReturn(Optional.of(b1));
 
-        mockMvc.perform(post("/api/v1/book/create")
+        mockMvc.perform(post("/api/v1/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(b1)))
                 .andExpect(status().is4xxClientError());
@@ -108,7 +108,7 @@ public class BookControllerTest {
         BookEntity b2 = new BookEntity(2L,"Clean Code2", "test","Robert Cecil","desc",1,"image",20.00,1);
         Page<BookEntity> pagedTasks = new PageImpl(List.of(b1,b2));
         when(bookRepository.findAll(PageRequest.of(0, 10,Sort.by("rating")))).thenReturn(pagedTasks);
-        mockMvc.perform(get("/api/v1/book/fetch-all?page=1&size=10&sort=rating&descending=false")).
+        mockMvc.perform(get("/api/v1/books/fetch-all?page=1&size=10&sort=rating&descending=false")).
                 andExpect(MockMvcResultMatchers.jsonPath("content[0].title").value("Clean Code1")).
                 andExpect(MockMvcResultMatchers.jsonPath("content[1].title").value("Clean Code2"));
     }
@@ -119,7 +119,7 @@ public class BookControllerTest {
         BookEntity book = new BookEntity(5L, "New Book","test", "John Doe", "Description",1, "Image", 29.99,1);
         when(bookRepository.save(any())).thenReturn(book);
 
-        mockMvc.perform(post("/api/v1/book/create")
+        mockMvc.perform(post("/api/v1/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(book)))
                     .andExpect(status().isOk());
@@ -132,7 +132,7 @@ public class BookControllerTest {
         BookEntity book = new BookEntity(bookId, "Fetched Book","test", "Jane Doe", "Description", 1,"Image", 39.99,1);
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
 
-        mockMvc.perform(get("/api/v1/book/fetch/{id}", bookId))
+        mockMvc.perform(get("/api/v1/books/{id}", bookId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("Fetched Book"))
                 .andExpect(jsonPath("$.author").value("Jane Doe"));
@@ -149,7 +149,7 @@ public class BookControllerTest {
 
         QuantityDto quantity = new QuantityDto(5, Type.ADD);
         // When
-        mockMvc.perform(post("/api/v1/book/update-quantity/5")
+        mockMvc.perform(post("/api/v1/books/update-quantity/5")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(quantity)))
                 .andExpect(status().isOk())
@@ -165,7 +165,7 @@ public class BookControllerTest {
 
         QuantityDto quantity = new QuantityDto(5, Type.REMOVE);
         // When
-        mockMvc.perform(post("/api/v1/book/update-quantity/5")
+        mockMvc.perform(post("/api/v1/books/update-quantity/5")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(quantity)))
                 .andExpect(status().isOk())
@@ -180,7 +180,7 @@ public class BookControllerTest {
         List<BookEntity> books=List.of(b1,b2);
         String data="cle";
         when(bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase("c","c","c")).thenReturn(books);
-        mockMvc.perform(get("/api/v1/book/search?data=c")).andExpect(jsonPath("$.length()").value(2));
+        mockMvc.perform(get("/api/v1/books?search=c")).andExpect(jsonPath("$.length()").value(2));
     }
 
     @Test
@@ -192,7 +192,7 @@ public class BookControllerTest {
 
         when(bookRepository.save(any())).thenReturn(response);
 
-        mockMvc.perform(post("/api/v1/book/create")
+        mockMvc.perform(post("/api/v1/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(book)))
                 .andExpect(status().is4xxClientError());

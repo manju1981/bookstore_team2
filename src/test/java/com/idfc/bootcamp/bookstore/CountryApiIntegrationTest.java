@@ -56,7 +56,7 @@ public class CountryApiIntegrationTest {
         CountryEntity country2 = new CountryEntity(6L,"SriLanka");
         countryRepository.deleteAll();
         countryRepository.saveAll(Arrays.asList(country1,country2));
-        final List<CountryDto> countries = restTemplate.exchange(baseUrl + "/country/fetch-all", HttpMethod.GET, null,
+        final List<CountryDto> countries = restTemplate.exchange(baseUrl + "/countries/fetch-all", HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<CountryDto>>() {
                 }).getBody();
         assertEquals(2, countries.size());
@@ -67,7 +67,7 @@ public class CountryApiIntegrationTest {
     void shouldCreateBookAndReturnCreatedBook() {
         CountryDto countryDto = new CountryDto(5L,"India");
 
-        ResponseEntity<CountryDto> response = restTemplate.postForEntity(baseUrl + "/country/create", countryDto, CountryDto.class);
+        ResponseEntity<CountryDto> response = restTemplate.postForEntity(baseUrl + "/countries", countryDto, CountryDto.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());

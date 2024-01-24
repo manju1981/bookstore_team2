@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/country")
+@RequestMapping("api/v1/countries")
 public class CountryController {
 
     CountryService countryService;
@@ -27,7 +27,7 @@ public class CountryController {
         return countryService.fetchAllCountries();
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<CountryDto> createBook(@Valid @RequestBody CountryDto dto) {
         return ResponseEntity.ok(MapperUtility.convertClass(countryService.create(dto), CountryDto.class));
     }

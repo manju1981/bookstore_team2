@@ -56,7 +56,7 @@ public class BookApiIntegrationTest {
         bookRepository.deleteAll();
         bookRepository.saveAll(Arrays.asList(b1, b2));
         ResponseEntity<PagedResponse<BookDto>> response = restTemplate.exchange(
-                baseUrl + "/book/fetch-all",
+                baseUrl + "/books/fetch-all",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<PagedResponse<BookDto>>() {
@@ -79,7 +79,7 @@ public class BookApiIntegrationTest {
         bookRepository.deleteAll();
         bookRepository.saveAll(Arrays.asList(b1, b2));
         ResponseEntity<PagedResponse<BookEntity>> response = restTemplate.exchange(
-                baseUrl + "/book/fetch-all?page=1&size=10&sort=rating&descending=true",
+                baseUrl + "/books/fetch-all?page=1&size=10&sort=rating&descending=true",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<PagedResponse<BookEntity>>() {
@@ -93,7 +93,7 @@ public class BookApiIntegrationTest {
     void shouldCreateBookAndReturnCreatedBook() {
         BookDto bookDto = new BookDto(5L, "Clean Code", "1234", "Robert Cecil", "desc", 1, "image", 20.00, 1);
 
-        ResponseEntity<BookDto> response = restTemplate.postForEntity(baseUrl + "/book/create", bookDto, BookDto.class);
+        ResponseEntity<BookDto> response = restTemplate.postForEntity(baseUrl + "/books", bookDto, BookDto.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
@@ -109,7 +109,7 @@ public class BookApiIntegrationTest {
         BookEntity b1 = new BookEntity(1L, "Clean Code", "test", "Robert Cecil", "desc", 1, "image", 20.00, 1);
         bookRepository.save(b1);
         ResponseEntity<BookDto> response = restTemplate.exchange(
-                baseUrl + "book/fetch/{id}", HttpMethod.GET, null,
+                baseUrl + "books/{id}", HttpMethod.GET, null,
                 new ParameterizedTypeReference<BookDto>() {
                 }, existingBookId);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -126,7 +126,7 @@ public class BookApiIntegrationTest {
         bookRepository.save(b1);
         bookRepository.save(b2);
         bookRepository.save(b3);
-        final List<Book> books = restTemplate.exchange(baseUrl + "/book/search?data=search", HttpMethod.GET, null,
+        final List<Book> books = restTemplate.exchange(baseUrl + "/books?search=search", HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Book>>() {
                 }).getBody();
         assertEquals(2, books.size());

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("api/v1/book")
+@RequestMapping("api/v1/books")
 public class BookController {
 
     BookService bookService;
@@ -27,12 +27,12 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<BookDto> createBook(@Valid @RequestBody BookDto dto) throws Exception {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.create(dto), BookDto.class));
     }
 
-    @GetMapping("/fetch/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<BookDto> fetchBook(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(MapperUtility.convertClass(bookService.findById(id), BookDto.class));
     }
@@ -51,12 +51,11 @@ public class BookController {
         return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(page, size, sort), BookDto.class));
     }
 
-    @GetMapping("/search")
+    @GetMapping("")
     public ResponseEntity<List<BookEntity>> searchBooks(
-            @RequestParam() String data) {
-        return ResponseEntity.ok(bookService.searchBooks(data));
+            @RequestParam() String search) {
+        return ResponseEntity.ok(bookService.searchBooks(search));
     }
-
 
     @PostMapping("/update-quantity/{id}")
     public ResponseEntity<BookDto> updateBook(@PathVariable(value = "id") Long id, @RequestBody @Valid QuantityDto dto) throws Exception {

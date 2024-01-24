@@ -32,7 +32,7 @@ public class CountryControllerTest {
     @Test
     @DisplayName("should return success http status")
     void shouldReturnSuccessHttpStatus() throws Exception {
-        mockMvc.perform(get("/api/v1/country/fetch-all")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/v1/countries/fetch-all")).andExpect(status().isOk());
     }
 
     @Test
@@ -41,7 +41,7 @@ public class CountryControllerTest {
         CountryEntity country = new CountryEntity(5L,"India");
         when(countryRepository.save(Mockito.any())).thenReturn(country);
 
-        mockMvc.perform(post("/api/v1/country/create")
+        mockMvc.perform(post("/api/v1/countries")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(country)))
                 .andExpect(status().isOk());
