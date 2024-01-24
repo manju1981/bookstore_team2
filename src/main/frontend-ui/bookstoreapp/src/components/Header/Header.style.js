@@ -31,3 +31,8 @@ const searchContainerStyle = {
 };
 
 export { headerStyle, logoStyle, textStyle, searchContainerStyle };
+
+export const CartIcon = {
+   fontSize: '28px',
+    color: 'white',
+}

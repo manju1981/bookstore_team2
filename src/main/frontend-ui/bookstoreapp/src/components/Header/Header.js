@@ -1,14 +1,16 @@
 import React from "react";
-import { Header as HeaderComponent, Image } from "semantic-ui-react";
+import {Button, ButtonContent, Header as HeaderComponent, Icon, Image} from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/new_Logo.png";
 import Search from "../Search/Search";
 import {
-  headerStyle,
-  logoStyle,
-  textStyle,
-  searchContainerStyle,
+    headerStyle,
+    logoStyle,
+    textStyle,
+    CartIcon,
+    searchContainerStyle, CartIconContainer,
 } from "./Header.style";
+import {ButtonContainer} from "../BookDetails/BookDetails.style";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -32,6 +34,14 @@ const Header = () => {
       <div style={searchContainerStyle}>
         <Search />
       </div>
+        <div>
+            {/*<Button  size='large' style={CartIconContainer}>*/}
+
+                <ButtonContent visible>
+                    <Icon style={CartIcon} name='shop' />
+                </ButtonContent>
+            {/*</Button>*/}
+        </div>
     </HeaderComponent>
   );
 };
