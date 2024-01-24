@@ -60,12 +60,14 @@ const Search = () => {
             title: book.title,
             img: book.img,
             price: book.price,
+            author:book.author,
             id: book.id
           }))}
-          resultRenderer={({ title, img, price }) => (
+          resultRenderer={({ title, img, price,author }) => (
               <div>
-                <Image src={img} size="tiny" spaced="right" />
+                <Image src={img} size="Medium" spaced="right" />
                 <div>{title}</div>
+                <label className="card-author">{author}</label>
                 <div>{`Price: ${price}`}</div>
               </div>
           )}
