@@ -20,11 +20,6 @@ function App() {
                 setCurrentPage(data?.currentPage);
                 setTotalPages(data?.totalPages);
             })
-            .then((data) => {
-                setBooks(data?.content);
-                setCurrentPage(data?.currentPage);
-                setTotalPages(data?.totalPages);
-            })
             .catch((error) => console.error(error));
     }, [currentPage]);
 
