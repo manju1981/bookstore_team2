@@ -59,11 +59,9 @@ public class BookService {
         if (page - 1 < 0) {
             throw new ApplicationException(ApiErrors.INVALID_PAGE, page);
         }
-        if (order) {
-            return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data, data, data, PageRequest.of(page - 1, offset, Sort.by(sort).descending()));
-        }
-        return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data, data, data, PageRequest.of(page - 1, offset, Sort.by(sort)));
+        return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data, data, data, PageRequest.of(page - 1, offset, order ? Sort.by(sort).descending() : Sort.by(sort)));
     }
+
     public BookEntity update(Long id, QuantityDto book) {
         Optional<BookEntity> existingBook = bookRepository.findById(id);
         if (existingBook.isEmpty() || book.getQuantity() == 0) {
