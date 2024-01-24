@@ -40,22 +40,14 @@ public class BookController {
     @CrossOrigin
     @GetMapping("/fetch-all")
     public ResponseEntity<PagedResponse<BookDto>> findBooksPageable(
+            @RequestParam(defaultValue = "") String search,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "title") String sort,
             @RequestParam(defaultValue = "false") Boolean descending) {
-        if(descending) {
-            return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageableDescending(page, size, sort), BookDto.class));
-
-        }
-        return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(page, size, sort), BookDto.class));
+        return ResponseEntity.ok(MapperUtility.convertPageToList(bookService.findBooksPageable(search,page, size, sort,descending), BookDto.class));
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<BookEntity>> searchBooks(
-            @RequestParam() String search) {
-        return ResponseEntity.ok(bookService.searchBooks(search));
-    }
 
     @PostMapping("/update-quantity/{id}")
     public ResponseEntity<BookDto> updateBook(@PathVariable(value = "id") Long id, @RequestBody @Valid QuantityDto dto) throws Exception {

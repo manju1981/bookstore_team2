@@ -53,19 +53,16 @@ public class BookService {
         return MapperUtility.convertClass(bookRepository.findById(id), BookEntity.class);
     }
 
-    public Page<BookEntity> findBooksPageable(int page, int offset, String sort) {
+    public Page<BookEntity> findBooksPageable(String data,int page, int offset, String sort,boolean order) {
         if (page - 1 < 0) {
             throw new ApplicationException(ApiErrors.INVALID_PAGE, page);
         }
-        return bookRepository.findAll(PageRequest.of(page - 1, offset, Sort.by(sort)));
+        if(order){
+            return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data,data,data,PageRequest.of(page - 1, offset, Sort.by(sort).descending()));
+        }
+        return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data,data,data,PageRequest.of(page - 1, offset, Sort.by(sort)));
     }
 
-    public Page<BookEntity> findBooksPageableDescending(int page, int offset, String sort) {
-        if (page - 1 < 0) {
-            throw new ApplicationException(ApiErrors.INVALID_PAGE, page);
-        }
-        return bookRepository.findAll(PageRequest.of(page - 1, offset, Sort.by(sort).descending()));
-    }
 
     public BookEntity update(Long id, QuantityDto book) {
         Optional<BookEntity> existingBook = bookRepository.findById(id);
@@ -81,7 +78,4 @@ public class BookService {
         return new BookEntity();
     }
 
-    public List<BookEntity> searchBooks(String data) {
-        return bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(data, data, data);
-    }
 }

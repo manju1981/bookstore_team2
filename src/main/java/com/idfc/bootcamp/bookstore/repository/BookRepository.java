@@ -13,8 +13,6 @@ import java.util.List;
 @Repository
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
-    List<BookEntity> findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(String title, String author,String description);
-
-    Page<BookEntity> findAll(Pageable pageable);
+    Page<BookEntity> findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(String title, String author,String description,Pageable pageable);
     BookEntity findByIdAndAuthor(Long id, String author);
 }
