@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class CountryService {
@@ -20,6 +21,9 @@ public class CountryService {
 
     public List<CountryEntity> fetchAllCountries(){
         return countryRepository.findAll();
+    }
+    public Optional<CountryEntity> findByCountryId(Long id){
+        return countryRepository.findById(id);
     }
     public CountryEntity create(CountryDto dto) {
         return countryRepository.save(Objects.requireNonNull(MapperUtility.convertClass(dto, CountryEntity.class)));

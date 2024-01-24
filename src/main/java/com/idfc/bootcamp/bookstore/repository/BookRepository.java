@@ -15,7 +15,7 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     Page<BookEntity> findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase(String title, String author,String description,Pageable pageable);
-    BookEntity findByIdAndAuthor(Long id, String author);
+    BookEntity findByBookId(String bookId);
     @Query(value = "SELECT * FROM books b WHERE " +
             "(LOWER(COALESCE(b.title, '')) LIKE LOWER(:fieldValue) || '%' AND :fieldName = 'title') OR " +
             "(LOWER(COALESCE(b.author, '')) LIKE LOWER(:fieldValue) || '%' AND :fieldName = 'author') OR " +

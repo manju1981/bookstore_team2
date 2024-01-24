@@ -12,6 +12,8 @@ import com.idfc.bootcamp.bookstore.exceptions.ApiErrors;
 import com.idfc.bootcamp.bookstore.exceptions.ApplicationException;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import com.idfc.bootcamp.bookstore.repository.CountryRepository;
+import com.idfc.bootcamp.bookstore.repository.OrderRepository;
+import com.idfc.bootcamp.bookstore.service.OrderService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -45,6 +47,10 @@ public class BookControllerTest {
     BookRepository bookRepository;
     @MockBean
     CountryRepository countryRepository;
+    @MockBean
+    OrderService orderService;
+    @MockBean
+    OrderRepository orderRepository;
 
     @Test
     @DisplayName("should return success http status")

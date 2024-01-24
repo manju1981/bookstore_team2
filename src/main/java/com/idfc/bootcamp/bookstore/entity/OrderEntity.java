@@ -1,31 +1,32 @@
 package com.idfc.bootcamp.bookstore.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
-
-import java.util.Objects;
 
 @Entity
-@Table(name="books")
+@Table(name="orders")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
-public class BookEntity{
+@ToString
+public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
+
+    @Column(name = "order_id")
+    private Long orderId;
+
+    @Column(name = "country_id")
+    private Long countryId;
+
     @Column(name = "book_id")
     private String bookId;
-    private String author;
-    private String description;
-    private int rating;
-    private String img;
-    private double price;
+
     private int quantity;
+
+    @Column(name = "total_order_values")
+    private double totalOrderValues;
 }

@@ -9,6 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+@Builder
 public class QuantityDto {
     @Min(1)
     private int quantity;

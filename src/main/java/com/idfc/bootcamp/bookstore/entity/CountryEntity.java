@@ -10,6 +10,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+@Builder
 public class CountryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
