@@ -55,27 +55,27 @@ const BookDetails = () => {
                         <HeaderSubheader style={{ fontSize: "18px", marginTop: "2rem" }} as="h4">
                             {bookDetails.description}
                         </HeaderSubheader>
-                        <div>
-                       <label>Rs. {bookDetails?.price}</label>
-                       </div>
                     </Header>
+                    <div>
+                              <label>Rs. {bookDetails?.price}</label>
+                              </div>
                 </Header>
             </div>
-            <div>
-                 <Dropdown
-                 placeholder="Select your country"
-                 options={countryOptions}
-                 search
-                 selection
-                 data-testid="country-dropdown"
-                 style={{ marginTop: "1rem" }}
-                 />
-                 <Button circular={true} size="large" style={ButtonContainer} animated="horizontal">
-                 <ButtonContent hidden>BUY</ButtonContent>
-                 <ButtonContent visible>
-                 <Icon name="shop" />
-                 </ButtonContent>
-                 </Button>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+             <Dropdown
+                placeholder="Select your country"
+                options={countryOptions}
+                search
+                selection
+                data-testid="country-dropdown"
+                style={{ marginTop: "1rem" }}
+             />
+             <Button circular={true} size="large" style={ButtonContainer} animated="horizontal">
+                <ButtonContent hidden>BUY</ButtonContent>
+                <ButtonContent visible>
+                  <Icon name="shop" />
+                </ButtonContent>
+             </Button>
             </div>
             </div>
         </div>
