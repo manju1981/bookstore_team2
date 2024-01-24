@@ -1,10 +1,11 @@
 package com.idfc.bootcamp.bookstore;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import static org.hamcrest.CoreMatchers.is;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idfc.bootcamp.bookstore.dto.BookDto;
 import com.idfc.bootcamp.bookstore.dto.QuantityDto;
+import com.idfc.bootcamp.bookstore.dto.SearchCriteria;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.enums.Type;
 import com.idfc.bootcamp.bookstore.exceptions.ApiErrors;
@@ -26,10 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.awt.print.Book;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -186,6 +184,31 @@ public class BookControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(book)))
                 .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void testFindByField() throws Exception {
+        // Arrange
+        String fieldName = "title";
+        String fieldValue = "Harry";
+        BookEntity book = new BookEntity();
+        book.setTitle("Harry Potter and the Philosopher's Stone");
+        List<BookEntity> expectedBooks = Arrays.asList(book);
+        when(bookRepository.findByField(fieldName, fieldValue)).thenReturn(expectedBooks);
+
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.setFieldName(fieldName);
+        searchCriteria.setFieldValue(fieldValue);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonSearchCriteria = mapper.writeValueAsString(searchCriteria);
+
+        // Act and Assert
+        mockMvc.perform(post("/api/v1/books/filter")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonSearchCriteria))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title", is(book.getTitle())));
     }
 
     @AfterEach
