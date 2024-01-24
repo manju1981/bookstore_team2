@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Books from "./components/Books/Books";
 import PaginationNavigation from "./components/PaginationNavigation/PaginationNavigation";
+import BookDetails from "./components/BookDetails/BookDetails";
 
 function App() {
     const [books, setBooks] = useState([]);
@@ -32,16 +34,22 @@ function App() {
 
 
     return (
-        <div className="App">
-            <Header />
-            <Books books={books} />
+      <Router>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Books books={books} />} />
+          <Route path="/books" element={<Books books={books} />} />
+          <Route path="/book/:id" element={<BookDetails />} />
+        </Routes>
             <PaginationNavigation
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={handlePageChange}
             />
-            <Footer />
-        </div>
+        <Footer />
+      </div>
+    </Router>
     );
 }
 export default App;

@@ -1,8 +1,7 @@
-import { render } from "@testing-library/react";
+import React from "react";
+import { render, screen } from "@testing-library/react";
 import App from "./App";
-import Header from "./components/Header/Header";
-import Books from "./components/Books/Books";
-import Footer from "./components/Footer/Footer";
+
 
 const books = [
   {
@@ -73,11 +72,9 @@ const books = [
   }
 ]
 test("renders bookstore application", () => {
-  render(<App />);
-  render(<Header />);
-  render(<Books  books={books}/>);
-  render(<Footer />);
+  render(<App/>);
 
-  // const linkElement = screen.getByText(/learn react/i);
-  // expect(linkElement).toBeInTheDocument();
+expect(screen.getByTestId("Header-test")).toBeInTheDocument();
+expect(screen.getByTestId("Books-test")).toBeInTheDocument();
+expect(screen.getByTestId("Footer-test")).toBeInTheDocument();
 });
