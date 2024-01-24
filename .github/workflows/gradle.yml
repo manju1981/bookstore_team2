@@ -65,7 +65,7 @@ jobs:
       with:
         arguments: test
     - name: Generate coverage report
-      run: formatReportSumary.sh >> $GITHUB_STEP_SUMMARY
+      run: sh formatReportSumary.sh >> $GITHUB_STEP_SUMMARY
     - name: publish coverage report
       uses: actions/upload-artifact@v3
       with:
