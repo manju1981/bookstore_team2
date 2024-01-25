@@ -14,17 +14,27 @@ describe('BookDetails Component', () => {
     jest.clearAllMocks();
   });
 
-  it('renders book details correctly', async () => {
+  it.only('renders book details correctly', async () => {
     // Mock the fetch function to return mock data
     global.fetch = jest.fn().mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValueOnce({
         img: 'mock-image-url',
         title: 'Atomic Habits',
         author: 'James Clear',
         description: 'Mock description',
         price: 20.0,
       }),
-    });
+    }).mockResolvedValueOnce({
+                 json: jest.fn().mockResolvedValueOnce([{
+                 id:1,
+                 name:'IND'
+                 },
+                 {
+                 id:2,
+                 name:'US'
+                 }]),
+               });;
+
 
     // Mock useParams to return a mock ID
     jest.spyOn(require('react-router-dom'), 'useParams').mockReturnValue({ id: '1' });
@@ -53,15 +63,15 @@ describe('BookDetails Component', () => {
 
   it('handles user interaction', async () => {
     // Mock the fetch function to return mock data
-    global.fetch = jest.fn().mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValue({
-        img: 'mock-image-url',
-        title: 'Atomic Habits',
-        author: 'James Clear',
-        description: 'Mock description',
-        price: 20.0,
-      }),
-    });
+    global.fetch = jest.fn().mockResolvedValue({
+          json: jest.fn().mockResolvedValue({
+            img: 'mock-image-url',
+            title: 'Atomic Habits',
+            author: 'James Clear',
+            description: 'Mock description',
+            price: 20.0,
+          }),
+        });
 
     // Mock useParams to return a mock ID
     jest.spyOn(require('react-router-dom'), 'useParams').mockReturnValue({ id: '1' });

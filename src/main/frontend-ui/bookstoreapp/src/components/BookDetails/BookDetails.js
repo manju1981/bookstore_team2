@@ -83,11 +83,11 @@ const BookDetails = () => {
       })
       .catch((error) => console.error(error));
     fetch(`http://localhost:8090/api/v1/countries/fetch-all`)
-                .then((response) => response.json())
-                .then((data) => {
-                    setCountries(data); // Update the bookDetails state with fetched data
-                })
-                .catch((error) => console.error(error));
+        .then((response) => response.json())
+        .then((data) => {
+           setCountries(data);
+         })
+        .catch((error) => console.error(error));
   }, [id]);
 
   const performAddToCart = () => {
