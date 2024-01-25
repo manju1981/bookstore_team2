@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eed3511d-4741-4462-a1b9-3715782a6a66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/frontend-ui/bookstoreapp/src/components/BookDetails/BookDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/frontend-ui/bookstoreapp/src/components/BookDetails/BookDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/frontend-ui/bookstoreapp/src/components/Search/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/frontend-ui/bookstoreapp/src/components/Search/Search.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,8 +47,7 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="bookstore" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="node" type="c8890929:TasksNode$1" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -97,41 +94,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.BookApiIntegrationTest.shouldReturnListOfBooksWhenEndpointIsAccessed.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.BookControllerTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.BookControllerTest.shouldReturnSuccessHttpStatus.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.BookControllerTest.shouldReturnTheFirstBookTitleAsAbc.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build bootstrap_bare_project.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Tests in 'bookstore.test'.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.bootstrap_bare_project [build].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BookstoreApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/manjurn/bootcamp/bootstrap_bare_project&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.BookApiIntegrationTest.shouldReturnListOfBooksWhenEndpointIsAccessed.executor": "Run",
+    "Gradle.BookControllerTest.executor": "Run",
+    "Gradle.BookControllerTest.shouldReturnSuccessHttpStatus.executor": "Run",
+    "Gradle.BookControllerTest.shouldReturnTheFirstBookTitleAsAbc.executor": "Run",
+    "Gradle.Build bootstrap_bare_project.executor": "Run",
+    "Gradle.Tests in 'bookstore.test'.executor": "Run",
+    "Gradle.bookstore_team2 [:BookstoreApplication.main()].executor": "Run",
+    "Gradle.bookstore_team2 [clean].executor": "Run",
+    "Gradle.bootstrap_bare_project [build].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.BookstoreApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/manjurn/bootcamp/bootstrap_bare_project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.idfc.bootcamp.bookstore" />
@@ -315,5 +314,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/bookstore$BookControllerTest.ic" NAME="BookControllerTest Coverage Results" MODIFIED="1705575494574" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/bookstore$BookApiIntegrationTest_shouldReturnListOfBooksWhenEndpointIsAccessed.ic" NAME="BookApiIntegrationTest.shouldReturnListOfBooksWhenEndpointIsAccessed Coverage Results" MODIFIED="1706126116739" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
