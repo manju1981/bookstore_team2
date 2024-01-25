@@ -1,6 +1,7 @@
 package com.idfc.bootcamp.bookstore.dto;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -13,9 +14,11 @@ import lombok.*;
 @ToString
 public class BookDto {
 
+    @Schema(hidden = true)
     private Long id;
     @NotEmpty(message = "title not be Empty and null")
     private String title;
+    @Schema(hidden = true)
     private String bookId;
     @NotEmpty(message = "author should not be empty")
     private String author;
