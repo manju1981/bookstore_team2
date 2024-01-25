@@ -34,6 +34,30 @@ const Cart = () => {
     setCartItems([]);
   };
 
+  const placeOrder = () => {
+   const requestBody = {
+      countryId: 1,
+      orders: cartItems,
+      totalOrderValues: getTotalCartAmountQty()?.total
+   };
+
+   fetch(`http://localhost:8090/api/v1/orders`,{
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestBody)
+          })
+          .then((response) => response.json())
+          .then((data) => {
+                clearAllCart();
+                alert("Order placed!");
+          })
+          .catch((error) =>{
+          alert("Failed to add order.");
+           console.error(error);
+           });
+  };
+
+
   if (!cartItems?.length) {
     return (
       <div className="cart-container">
@@ -129,6 +153,7 @@ const Cart = () => {
           size="large"
           className="checkout-btn"
           animated="horizontal"
+          onClick={placeOrder}
         >
           <ButtonContent hidden>
             <Icon name="long arrow alternate right" />
