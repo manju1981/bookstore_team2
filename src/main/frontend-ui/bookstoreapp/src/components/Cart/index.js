@@ -37,7 +37,7 @@ const Cart = () => {
   const placeOrder = () => {
    const requestBody = {
       countryId: 1,
-      orders: cartItems,
+      orders: cartItems.map(item => ({bookId: item.bookId, quantity: item.quantity})),
       totalOrderValues: getTotalCartAmountQty()?.total
    };
 
