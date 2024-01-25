@@ -7,18 +7,6 @@ import styles from "./Books.style";
 
 const sortOptions = [
   {
-    key: "price_low_to_high",
-    text: "Price Low to High",
-    value: "price_low_to_high",
-    content: "Price Low to High"
-  },
-  {
-    key: "price_high_to_low",
-    text: "Price High to Low",
-    value: "price_high_to_low",
-    content: "Price High to Low"
-  },
-  {
     key: "title_a_to_z",
     text: "Title A to Z",
     value: "title_a_to_z",
@@ -31,16 +19,28 @@ const sortOptions = [
     content: "Title Z to A"
   },
   {
-    key: "rate_low_to_high",
-    text: "Rate Low to High",
-    value: "rate_low_to_high",
-    content: "Rate Low to High"
+    key: "price_low_to_high",
+    text: "Price Low to High",
+    value: "price_low_to_high",
+    content: "Price Low to High"
   },
   {
-    key: "rate_high_to_low",
-    text: "Rate High to Low",
-    value: "rate_high_to_low",
-    content: "Rate High to Low"
+    key: "price_high_to_low",
+    text: "Price High to Low",
+    value: "price_high_to_low",
+    content: "Price High to Low"
+  },
+  {
+    key: "rating_low_to_high",
+    text: "Rating Low to High",
+    value: "rating_low_to_high",
+    content: "Rating Low to High"
+  },
+  {
+    key: "rating_high_to_low",
+    text: "Rating High to Low",
+    value: "rating_high_to_low",
+    content: "Rating High to Low"
   }
 ];
 
