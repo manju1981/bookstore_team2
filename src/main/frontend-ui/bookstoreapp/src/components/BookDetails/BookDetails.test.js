@@ -14,7 +14,7 @@ describe('BookDetails Component', () => {
     jest.clearAllMocks();
   });
 
-  it.only('renders book details correctly', async () => {
+  it('renders book details correctly', async () => {
     // Mock the fetch function to return mock data
     global.fetch = jest.fn().mockResolvedValueOnce({
       json: jest.fn().mockResolvedValueOnce({
