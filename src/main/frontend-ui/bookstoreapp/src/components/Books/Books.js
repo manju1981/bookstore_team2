@@ -84,11 +84,11 @@ const Books = () => {
         setSortCriterion("price");
         setSortDirection("true");
         break;
-      case "rate_low_to_high":
+      case "rating_low_to_high":
         setSortCriterion("rating");
         setSortDirection("false");
         break;
-      case "rate_high_to_low":
+      case "rating_high_to_low":
         setSortCriterion("rating");
         setSortDirection("true");
         break;
