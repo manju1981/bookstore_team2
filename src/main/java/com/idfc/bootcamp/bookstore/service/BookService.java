@@ -3,7 +3,6 @@ package com.idfc.bootcamp.bookstore.service;
 import com.idfc.bootcamp.bookstore.dto.BookDto;
 import com.idfc.bootcamp.bookstore.dto.QuantityDto;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
-import com.idfc.bootcamp.bookstore.enums.Type;
 import com.idfc.bootcamp.bookstore.exceptions.ApiErrors;
 import com.idfc.bootcamp.bookstore.exceptions.ApplicationException;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class BookService {
@@ -61,17 +59,12 @@ public class BookService {
     }
 
     public BookEntity update(Long id, QuantityDto book) {
-        Optional<BookEntity> existingBook = bookRepository.findById(id);
-        if (existingBook.isEmpty() || book.getQuantity() == 0) {
-            throw new ApplicationException(ApiErrors.BOOK_NOT_FOUND, id);
-        }
-        if (Type.ADD.equals(book.getType())) {
-            existingBook.get().setQuantity(book.getQuantity() + existingBook.get().getQuantity());
-        } else if (existingBook.get().getQuantity() - book.getQuantity() >= 0) {
-            existingBook.get().setQuantity(existingBook.get().getQuantity() - book.getQuantity());
-        }
-        bookRepository.save(existingBook.get());
-        return existingBook.get();
+        BookEntity existingBook = bookRepository.findById(id)
+                .orElseThrow(() -> new ApplicationException(ApiErrors.BOOK_NOT_FOUND, id));
+        if (book.getQuantity() == 0) throw new ApplicationException(ApiErrors.INVALID_QUANTITY);
+        existingBook.changeQuantity(book);
+        bookRepository.save(existingBook);
+        return existingBook;
     }
 
     public List<BookEntity> findByField(String fieldName, String fieldValue) {

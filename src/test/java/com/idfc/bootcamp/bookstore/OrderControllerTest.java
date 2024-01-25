@@ -10,8 +10,10 @@ import com.idfc.bootcamp.bookstore.entity.OrderEntity;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import com.idfc.bootcamp.bookstore.repository.CountryRepository;
 import com.idfc.bootcamp.bookstore.repository.OrderRepository;
+import com.idfc.bootcamp.bookstore.service.BookService;
 import com.idfc.bootcamp.bookstore.service.CountryService;
 import com.idfc.bootcamp.bookstore.service.OrderService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -37,6 +39,9 @@ class OrderControllerTest {
     private MockMvc mockMvc;
     @Mock
     OrderService orderService;
+
+    @Mock
+    BookService bookService;
     @InjectMocks
     private OrdersController orderController;
     @Autowired
@@ -69,38 +74,31 @@ class OrderControllerTest {
     }
 
     @Test
+    @DisplayName("should create books order")
     void createBook() throws Exception {
         OrderRequest orderRequest = createSampleOrderRequest();
+        BookEntity b1 = new BookEntity(1L,"Clean Code1","test", "Robert Cecil","desc",0,"image",20.00,5);
         when(orderRepository.findByOrderId(orderRequest.getOrderId())).thenReturn(null);
-        when(countryService.findByCountryId(orderRequest.getCountryId())).thenReturn(Optional.of(CountryEntity.builder().id(1L).name("IND").build()));
+        when(bookRepository.findById(any())).thenReturn(Optional.of(b1));
+        when(countryService.findByCountryId(any())).thenReturn(Optional.of(CountryEntity.builder().id(1L).name("IND").build()));
+        when(countryRepository.findById(any())).thenReturn(Optional.of(CountryEntity.builder().id(1L).name("IND").build()));
+        when(bookRepository.findByBookId(any())).thenReturn(b1);
         when(orderService.checkBookIdNotExist(orderRequest.getOrders())).thenReturn(false);
-        when(bookRepository.findByBookId(any())).thenReturn(new BookEntity());
-        when(bookRepository.findById(any())).thenReturn(Optional.of(new BookEntity()));
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/orders")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(orderRequest)))
                 .andExpect(status().isOk());
-                /*.andExpect(MockMvcResultMatchers.jsonPath("$.orderId").value(orderRequest.getOrderId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.countryId").value(orderRequest.getCountryId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.totalOrderValues").value(orderRequest.getTotalOrderValues()));*/
     }
 
     @Test
+    @DisplayName("should fetch orders by order_id")
     void fetchByOrderId() throws Exception {
         OrderRequest orderRequest = createSampleOrderRequest();
-        when(orderService.fetchByOrderId(any(Long.class))).thenReturn(orderRequest);
-        when(orderService.createOrder(any(OrderRequest.class))).thenReturn(any());
-        when(orderRepository.findByOrderId(orderRequest.getOrderId())).thenReturn(null);
-        when(countryService.findByCountryId(orderRequest.getCountryId())).thenReturn(Optional.of(CountryEntity.builder().id(1L).name("IND").build()));
-        when(orderService.checkBookIdNotExist(orderRequest.getOrders())).thenReturn(false);
-        when(bookRepository.findByBookId(any())).thenReturn(new BookEntity());
-        when(bookRepository.findById(any())).thenReturn(Optional.of(new BookEntity()));
+        when(orderRepository.findByOrderId(orderRequest.getOrderId())).thenReturn(List.of(OrderEntity.builder().orderId(1L).bookId("abcd-1234").countryId(1L).totalOrderValues(23.00).build(),OrderEntity.builder().orderId(1L).bookId("abcd-1234").countryId(1L).totalOrderValues(23.00).build()));
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/orders/{orderId}", "123")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-                /*.andExpect(MockMvcResultMatchers.jsonPath("$.orderId").value(orderRequest.getOrderId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.countryId").value(orderRequest.getCountryId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.totalOrderValues").value(orderRequest.getTotalOrderValues()));*/
+
     }
     @Test
     void fetchAllOrders_ShouldReturnOrderRequests() throws Exception {

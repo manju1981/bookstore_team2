@@ -4,8 +4,8 @@ import com.idfc.bootcamp.bookstore.dto.OrderDto;
 import com.idfc.bootcamp.bookstore.dto.order_request.OrderItem;
 import com.idfc.bootcamp.bookstore.dto.order_request.OrderRequest;
 import com.idfc.bootcamp.bookstore.entity.OrderEntity;
+import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 
+@UtilityClass
 public class OrderDtoBuilder {
-
-    @Autowired
-    BookService bookService;
 
     public static List<OrderDto> mapToOrderDto(OrderRequest dto) {
         List<OrderDto> list = new ArrayList<>();

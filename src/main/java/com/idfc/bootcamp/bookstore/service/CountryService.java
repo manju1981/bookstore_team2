@@ -22,10 +22,10 @@ public class CountryService {
     public List<CountryEntity> fetchAllCountries(){
         return countryRepository.findAll();
     }
-    public Optional<CountryEntity> findByCountryId(Long id){
-        return countryRepository.findById(id);
-    }
     public CountryEntity create(CountryDto dto) {
         return countryRepository.save(Objects.requireNonNull(MapperUtility.convertClass(dto, CountryEntity.class)));
+    }
+    public Optional<CountryEntity> findByCountryId(Long id){
+        return countryRepository.findById(id);
     }
 }

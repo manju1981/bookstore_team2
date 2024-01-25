@@ -1,15 +1,12 @@
 package com.idfc.bootcamp.bookstore;
 
 
-import static org.hamcrest.CoreMatchers.is;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idfc.bootcamp.bookstore.dto.BookDto;
 import com.idfc.bootcamp.bookstore.dto.QuantityDto;
 import com.idfc.bootcamp.bookstore.dto.SearchCriteria;
 import com.idfc.bootcamp.bookstore.entity.BookEntity;
 import com.idfc.bootcamp.bookstore.enums.Type;
-import com.idfc.bootcamp.bookstore.exceptions.ApiErrors;
-import com.idfc.bootcamp.bookstore.exceptions.ApplicationException;
 import com.idfc.bootcamp.bookstore.repository.BookRepository;
 import com.idfc.bootcamp.bookstore.repository.CountryRepository;
 import com.idfc.bootcamp.bookstore.repository.OrderRepository;
@@ -28,11 +25,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.awt.print.Book;
 import java.util.*;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -79,9 +74,9 @@ public class BookControllerTest {
         BookEntity b4 = new BookEntity(2L,"Clean Code", "test","Robert Cecil","desc",1,"image",20.00,1);
         BookEntity b5 = new BookEntity(1L,"Clean Code","test", "Robert Cecil","desc",1,"image",20.00,1);
         BookEntity b6 = new BookEntity(2L,"Clean Code", "test","Robert Cecil","desc",1,"image",20.00,1);
-        Page<BookEntity> pagedTasks = new PageImpl(List.of(b1,b2,b1,b2,b1,b2));
+        Page<BookEntity> pagedTasks = new PageImpl(List.of(b1,b2,b3,b4,b5,b6));
         when(bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase("","","",PageRequest.of(0, 10, Sort.by("title")))).thenReturn(pagedTasks);
-        mockMvc.perform(get("/api/v1/books/fetch-all")).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(6));
+        mockMvc.perform(get("/api/v1/books/fetch-all")).andExpect(MockMvcResultMatchers.jsonPath("$.content.length()").value(6));
     }
 
     @Test
