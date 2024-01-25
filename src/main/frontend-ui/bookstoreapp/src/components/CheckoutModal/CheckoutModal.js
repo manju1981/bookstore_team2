@@ -10,13 +10,40 @@ import {
 } from "semantic-ui-react";
 import logo from "../../assets/new_Logo.png";
 
-function CheckoutModal() {
+function CheckoutModal({ cartItems,getTotalCartAmountQty,clearAllCart }) {
   const [open, setOpen] = React.useState(false);
 
   return (
     <Modal
       onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+      onOpen={() => {
+      const requestBody = {
+            countryId: 1,
+            orders: cartItems.map((item) => ({
+              bookId: item.bookId,
+              quantity: item.quantity,
+            })),
+            totalOrderValues: getTotalCartAmountQty()?.total,
+          };
+
+          fetch(`http://localhost:8090/api/v1/orders`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestBody),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (!data.statusCode) {
+                setOpen(true);
+              } else {
+                alert(data.message);
+              }
+            })
+            .catch((error) => {
+              alert("Failed to add order.");
+              console.error(error);
+            });
+       }}
       open={open}
       trigger={
         <Button
@@ -54,7 +81,9 @@ function CheckoutModal() {
         <Button
           style={{ width: "250px", fontSize: "16px", background: "#262626" }}
           color="black"
-          onClick={() => setOpen(false)}
+          onClick={() =>{
+          clearAllCart();
+          setOpen(false);}}
         >
           Go back to Shopping
         </Button>

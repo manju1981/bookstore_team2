@@ -61,7 +61,6 @@ const Cart = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  console.log("Shipra getItem ", getItem());
 
   const handleQuantityChange = (item, qty) => {
     const updatedCartItems = updateItem(item, qty) || [];
@@ -76,36 +75,6 @@ const Cart = () => {
   const clearAllCart = () => {
     clearAllData();
     setCartItems([]);
-  };
-
-  const placeOrder = () => {
-    const requestBody = {
-      countryId: 1,
-      orders: cartItems.map((item) => ({
-        bookId: item.bookId,
-        quantity: item.quantity,
-      })),
-      totalOrderValues: getTotalCartAmountQty()?.total,
-    };
-
-    fetch(`http://localhost:8090/api/v1/orders`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data.statusCode) {
-          clearAllCart();
-          alert("Order placed!");
-        } else {
-          alert(data.message);
-        }
-      })
-      .catch((error) => {
-        alert("Failed to add order.");
-        console.error(error);
-      });
   };
 
   if (!cartItems?.length) {
@@ -198,7 +167,7 @@ const Cart = () => {
         />
       </div>
 
-      <CheckoutModal />
+      <CheckoutModal cartItems={cartItems} clearAllCart={clearAllCart} getTotalCartAmountQty={getTotalCartAmountQty}/>
 
       <div className="button-wrapper">
         <Button
