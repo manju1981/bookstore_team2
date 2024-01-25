@@ -97,3 +97,5 @@ jacocoTestReport {
 task buildJar(type: Jar) {
 	dependsOn copyFrontendFiles
 }
+
+bootRun.dependsOn copyFrontendFiles
