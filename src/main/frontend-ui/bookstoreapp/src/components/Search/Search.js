@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Search as SemanticSearch, Image } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
@@ -44,8 +44,7 @@ const Search = () => {
   };
 
   const handleResultSelect = (e, { result }) => {
-    setSearchQuery(result.title);
-    console.log(result)
+    setSearchQuery("");
     navigate(`/book/${result.id}`);
   };
 
