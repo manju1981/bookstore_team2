@@ -1,6 +1,7 @@
 @import '~semantic-ui-css/semantic.min.css';
 
-html, body {
+html,
+body {
   height: 100%;
   overflow: hidden;
 }
@@ -207,10 +208,11 @@ html, body {
   font-size: 14px;
 }
 
-.button-container {
- display: flex;
- justify-content: space-between;
-}
-.pagination-wrapper{
+.pagination-wrapper {
   margin-top: 18px;
+}
+
+.sort-by-label {
+  width: 200px;
+  text-align: left;
 }
