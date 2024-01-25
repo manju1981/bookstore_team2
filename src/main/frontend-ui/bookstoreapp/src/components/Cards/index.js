@@ -1,5 +1,5 @@
 import React from "react";
-import { Rating } from 'semantic-ui-react'
+import StarRating from "../StarRating/StarRating";
 
 
 const Card = ({ data }) => {
@@ -12,8 +12,7 @@ const Card = ({ data }) => {
       <div className="card-lower-body">
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <label className="card-title">{data?.title}</label>
-          <Rating icon='star' defaultRating={data?.rating} maxRating={5} />
-
+          <StarRating rating={data?.rating || 0} />
         </div>
         <label className="card-author">{data?.author}</label>
         <label className="card-price">Rs. {data?.price}</label>

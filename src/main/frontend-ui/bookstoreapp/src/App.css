@@ -202,10 +202,10 @@ body {
   color: grey;
   font-weight: 400;
 }
-.card-description {
+.card-price {
   margin-top: 5px;
   text-align: left;
-  font-size: 14px;
+  font-weight: 600;
 }
 
 .pagination-wrapper {
