@@ -68,11 +68,7 @@ public class BookService {
     }
 
     public List<BookEntity> findByField(String fieldName, String fieldValue) {
-        List<BookEntity> byField = bookRepository.findByField(fieldName, fieldValue);
-        if (byField.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return byField;
+        return bookRepository.findByField(fieldName, fieldValue);
     }
 
     public BookEntity findByBookId(String bookId) {

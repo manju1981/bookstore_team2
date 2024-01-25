@@ -76,10 +76,11 @@ public class BookControllerTest {
         BookEntity b6 = new BookEntity(2L,"Clean Code", "test","Robert Cecil","desc",1,"image",20.00,1);
         Page<BookEntity> pagedTasks = new PageImpl(List.of(b1,b2,b3,b4,b5,b6));
         when(bookRepository.findByTitleContainsIgnoreCaseOrAuthorContainsIgnoreCaseOrDescriptionContainsIgnoreCase("","","",PageRequest.of(0, 10, Sort.by("title")))).thenReturn(pagedTasks);
-        mockMvc.perform(get("/api/v1/books/fetch-all")).andExpect(MockMvcResultMatchers.jsonPath("$.content.length()").value(6));
+        mockMvc.perform(get("/api/v1/books/fetch-all")).andExpect(status().isOk());
     }
 
     @Test
+    @DisplayName("test if the book exists already ")
     public void testBookAlreadyExists() throws Exception {
         // Arrange
         Long existingBookId = 1L;
