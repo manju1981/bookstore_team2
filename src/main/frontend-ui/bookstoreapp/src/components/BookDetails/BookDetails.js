@@ -24,12 +24,10 @@ const bookDetail = {
   img: "https://prh.imgix.net/articles/atomichabits-1600x800-05.jpg",
   title: "Atomic Habits",
   author: "James Clear",
-  desc: "Atomic Habits by James Clear is a comprehensive, practical guide on how to change your habits and get 1% better every day. Using a framework called the Four Laws of Behavior Change, Atomic Habits teaches readers a simple set of rules for creating good habits and breaking bad ones. Read the full summary to glean 3 key lessons from Atomic Habits, learn how to build a habit in 4 simple steps, and get a handy reference guide for the strategies recommended throughout the book.",
+  description:
+    "Atomic Habits by James Clear is a comprehensive, practical guide on how to change your habits and get 1% better every day. Using a framework called the Four Laws of Behavior Change, Atomic Habits teaches readers a simple set of rules for creating good habits and breaking bad ones. Read the full summary to glean 3 key lessons from Atomic Habits, learn how to build a habit in 4 simple steps, and get a handy reference guide for the strategies recommended throughout the book.",
 };
-// const navigateToContacts = () => {
-//     // 👇️ navigate to /contacts
-//     navigate('/contacts');
-// };
+
 const countryOptions = [
   { key: "in", value: "in", flag: "in", text: "India" },
   { key: "af", value: "af", flag: "af", text: "Afghanistan" },
@@ -63,7 +61,7 @@ const BookDetails = () => {
     img: "",
     title: "",
     author: "",
-    desc: "",
+    description: "",
   });
 
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -124,7 +122,7 @@ const BookDetails = () => {
               style={{ fontSize: "18px", marginTop: "2rem" }}
               as="h4"
             >
-              {bookDetails.desc}
+              {bookDetails.description}
             </HeaderSubheader>
           </Header>
         </Header>
@@ -149,7 +147,7 @@ const BookDetails = () => {
             <Icon name="shop" />
           </ButtonContent>
         </Button>
-        {isAddedToCart && (
+        {/* {isAddedToCart && (
           <Link to="/cart" style={{ marginTop: 15 }}>
             <ButtonContent hidden>
               <div
@@ -163,7 +161,7 @@ const BookDetails = () => {
               </div>
             </ButtonContent>
           </Link>
-        )}
+        )} */}
       </div>
       <div style={ToastMessage}>
         {isAddedSuccessfully && (

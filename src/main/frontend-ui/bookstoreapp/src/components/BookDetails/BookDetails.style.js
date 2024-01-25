@@ -8,7 +8,7 @@ export const Container = {
 };
 
 export const DetailsContatiner = {
-  height: "400px",
+  height: "auto",
   display: "flex",
   flexDirection: "column",
   width: "40%",

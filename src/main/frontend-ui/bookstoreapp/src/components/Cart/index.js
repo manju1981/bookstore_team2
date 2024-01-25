@@ -62,8 +62,8 @@ const Cart = () => {
               <tr key={item.id}>
                 <td>
                   <img
-                    height={100}
-                    width={100}
+                    height={80}
+                    width={80}
                     src={item?.img}
                     alt="Product img"
                   />
