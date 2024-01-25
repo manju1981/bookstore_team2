@@ -48,11 +48,16 @@ const Cart = () => {
           })
           .then((response) => response.json())
           .then((data) => {
+                if(!data.statusCode){
                 clearAllCart();
                 alert("Order placed!");
+                }
+                else{
+                alert(data.message);
+                }
           })
           .catch((error) =>{
-          alert("Failed to add order.");
+           alert("Failed to add order.");
            console.error(error);
            });
   };
