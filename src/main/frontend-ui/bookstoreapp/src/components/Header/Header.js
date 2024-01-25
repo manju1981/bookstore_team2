@@ -1,19 +1,31 @@
 import React from "react";
-import {Button, ButtonContent, Header as HeaderComponent, Icon, Image} from "semantic-ui-react";
+import {
+  ButtonContent,
+  Header as HeaderComponent,
+  Icon,
+  Image,
+} from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/new_Logo.png";
 import Search from "../Search/Search";
 import {
-    headerStyle,
-    logoStyle,
-    textStyle,
-    CartIcon,
-    searchContainerStyle, CartIconContainer,
+  headerStyle,
+  logoStyle,
+  textStyle,
+  CartIcon,
+  searchContainerStyle,
+  CartBadgeBody,
+  CartBadgeText,
 } from "./Header.style";
-import {ButtonContainer} from "../BookDetails/BookDetails.style";
+import { getItem } from "../../utils";
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const navigateToContacts = (e, { result }) => {
+    console.log("shipppp");
+    navigate(`/cart/`);
+  };
 
   const handleLogoClick = () => {
     navigate("/");
@@ -34,14 +46,16 @@ const Header = () => {
       <div style={searchContainerStyle}>
         <Search />
       </div>
-        <div>
-            {/*<Button  size='large' style={CartIconContainer}>*/}
-
-                <ButtonContent visible>
-                    <Icon style={CartIcon} name='shop' />
-                </ButtonContent>
-            {/*</Button>*/}
-        </div>
+      <div>
+        <ButtonContent visible>
+          <Icon style={CartIcon} name="shop" onClick={navigateToContacts} />
+        </ButtonContent>
+        {getItem()?.length && (
+          <div style={CartBadgeBody}>
+            <span style={CartBadgeText}>{getItem()?.length}</span>
+          </div>
+        )}
+      </div>
     </HeaderComponent>
   );
 };

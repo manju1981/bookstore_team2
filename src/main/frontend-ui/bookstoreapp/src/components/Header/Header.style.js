@@ -19,20 +19,36 @@ const logoStyle = {
 };
 
 const textStyle = {
-    color: '#fff',
-    fontFamily: 'Montserrat, sans-serif',
-    fontWeight: '300',
-    fontSize: '1.7em',
+  color: "#fff",
+  fontFamily: "Montserrat, sans-serif",
+  fontWeight: "300",
+  fontSize: "1.7em",
 };
 
 const searchContainerStyle = {
   marginLeft: "auto",
   padding: "5px 15px",
 };
+const CartIcon = {
+  width: "55px",
+  color: "white",
+  fontSize: "1.5em",
+};
 
-export { headerStyle, logoStyle, textStyle, searchContainerStyle };
+export const CartBadgeBody = {
+  position: "absolute",
+  width: 20,
+  height: 20,
+  backgroundColor: "pink",
+  top: 15,
+  right: 23,
+  borderRadius: 20,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  border: "1px solid #fff",
+};
 
-export const CartIcon = {
-   fontSize: '28px',
-    color: 'white',
-}
+export const CartBadgeText = { fontSize: 9 };
+
+export { headerStyle, logoStyle, textStyle, searchContainerStyle, CartIcon };
