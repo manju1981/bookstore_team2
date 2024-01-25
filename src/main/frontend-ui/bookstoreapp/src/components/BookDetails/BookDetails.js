@@ -16,6 +16,7 @@ import {
   ToastMessage,
   ImageContainer,
   ButtonContainer,
+  PriceDetails,
 } from "./BookDetails.style";
 import { getItem, isNewInCart, setItem } from "../../utils";
 
@@ -26,6 +27,7 @@ const bookDetail = {
   author: "James Clear",
   description:
     "Atomic Habits by James Clear is a comprehensive, practical guide on how to change your habits and get 1% better every day. Using a framework called the Four Laws of Behavior Change, Atomic Habits teaches readers a simple set of rules for creating good habits and breaking bad ones. Read the full summary to glean 3 key lessons from Atomic Habits, learn how to build a habit in 4 simple steps, and get a handy reference guide for the strategies recommended throughout the book.",
+  price: "Rs. 399",
 };
 
 //const countryOptions = [
@@ -62,12 +64,16 @@ const BookDetails = () => {
     title: "",
     author: "",
     description: "",
+    price: "",
   });
 
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [isAddedSuccessfully, setIsAddedSuccessfully] = useState(false);
-  const [countries,setCountries] = useState([]);
-  const countryOptions = countries.map(item => ({value: item.id, text: item.name}));
+  const [countries, setCountries] = useState([]);
+  const countryOptions = countries.map((item) => ({
+    value: item.id,
+    text: item.name,
+  }));
 
   useEffect(() => {
     // Fetch book details based on the 'id' parameter
@@ -82,12 +88,6 @@ const BookDetails = () => {
         setBookDetails(data); // Update the bookDetails state with fetched data
       })
       .catch((error) => console.error(error));
-    fetch(`http://localhost:8090/api/v1/countries/fetch-all`)
-        .then((response) => response.json())
-        .then((data) => {
-           setCountries(data);
-         })
-        .catch((error) => console.error(error));
   }, [id]);
 
   const performAddToCart = () => {
@@ -100,7 +100,6 @@ const BookDetails = () => {
         setTimeout(() => {
           setIsAddedSuccessfully(true);
         }, 800);
-
         setTimeout(() => {
           window.location.reload(true);
         }, 300);
@@ -134,15 +133,8 @@ const BookDetails = () => {
             </HeaderSubheader>
           </Header>
         </Header>
+        <div style={PriceDetails}>Rs.{bookDetails.price}</div>
 
-        <Dropdown
-          placeholder="Select your country"
-          options={countryOptions}
-          search
-          selection
-          data-testid="country-dropdown"
-          style={{ marginTop: "1rem" }}
-        />
         <Button
           circular={true}
           size="large"

@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Cart.css";
 import logo from "../../assets/delete.png";
-import { Button, ButtonContent, Icon, Image } from "semantic-ui-react";
+import {
+  Button,
+  ButtonContent,
+  Icon,
+  Image,
+  Dropdown,
+} from "semantic-ui-react";
 import {
   clearAllData,
   getItem,
@@ -9,12 +15,50 @@ import {
   removeFromCart,
   updateItem,
 } from "../../utils";
+import CheckoutModal from "../CheckoutModal/CheckoutModal";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const countryOptions = countries.map((item) => ({
+    value: item.id,
+    text: item.name,
+  }));
+
+  //   { key: "in", value: "in", flag: "in", text: "India" },
+  //   { key: "af", value: "af", flag: "af", text: "Afghanistan" },
+  //   { key: "ax", value: "ax", flag: "ax", text: "Aland Islands" },
+  //   { key: "al", value: "al", flag: "al", text: "Albania" },
+  //   { key: "dz", value: "dz", flag: "dz", text: "Algeria" },
+  //   { key: "as", value: "as", flag: "as", text: "American Samoa" },
+  //   { key: "ad", value: "ad", flag: "ad", text: "Andorra" },
+  //   { key: "ao", value: "ao", flag: "ao", text: "Angola" },
+  //   { key: "ai", value: "ai", flag: "ai", text: "Anguilla" },
+  //   { key: "ag", value: "ag", flag: "ag", text: "Antigua" },
+  //   { key: "ar", value: "ar", flag: "ar", text: "Argentina" },
+  //   { key: "am", value: "am", flag: "am", text: "Armenia" },
+  //   { key: "aw", value: "aw", flag: "aw", text: "Aruba" },
+  //   { key: "au", value: "au", flag: "au", text: "Australia" },
+  //   { key: "at", value: "at", flag: "at", text: "Austria" },
+  //   { key: "az", value: "az", flag: "az", text: "Azerbaijan" },
+  //   { key: "bs", value: "bs", flag: "bs", text: "Bahamas" },
+  //   { key: "bh", value: "bh", flag: "bh", text: "Bahrain" },
+  //   { key: "bd", value: "bd", flag: "bd", text: "Bangladesh" },
+  //   { key: "bb", value: "bb", flag: "bb", text: "Barbados" },
+  //   { key: "by", value: "by", flag: "by", text: "Belarus" },
+  //   { key: "be", value: "be", flag: "be", text: "Belgium" },
+  //   { key: "bz", value: "bz", flag: "bz", text: "Belize" },
+  //   { key: "bj", value: "bj", flag: "bj", text: "Benin" },
+  // ];
 
   useEffect(() => {
     setCartItems(getItem());
+    fetch(`http://localhost:8090/api/v1/countries/fetch-all`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCountries(data);
+      })
+      .catch((error) => console.error(error));
   }, []);
 
   console.log("Shipra getItem ", getItem());
@@ -35,33 +79,34 @@ const Cart = () => {
   };
 
   const placeOrder = () => {
-   const requestBody = {
+    const requestBody = {
       countryId: 1,
-      orders: cartItems.map(item => ({bookId: item.bookId, quantity: item.quantity})),
-      totalOrderValues: getTotalCartAmountQty()?.total
-   };
+      orders: cartItems.map((item) => ({
+        bookId: item.bookId,
+        quantity: item.quantity,
+      })),
+      totalOrderValues: getTotalCartAmountQty()?.total,
+    };
 
-   fetch(`http://localhost:8090/api/v1/orders`,{
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody)
-          })
-          .then((response) => response.json())
-          .then((data) => {
-                if(!data.statusCode){
-                clearAllCart();
-                alert("Order placed!");
-                }
-                else{
-                alert(data.message);
-                }
-          })
-          .catch((error) =>{
-           alert("Failed to add order.");
-           console.error(error);
-           });
+    fetch(`http://localhost:8090/api/v1/orders`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data.statusCode) {
+          clearAllCart();
+          alert("Order placed!");
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((error) => {
+        alert("Failed to add order.");
+        console.error(error);
+      });
   };
-
 
   if (!cartItems?.length) {
     return (
@@ -83,7 +128,7 @@ const Cart = () => {
               <th>Price</th>
               <th>Quantity</th>
               <th>Total</th>
-              <th>Delete Icon</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -127,9 +172,10 @@ const Cart = () => {
           <tr>
             <th>Cart Totals</th>
             <th>Number of items: {getTotalCartAmountQty()?.qty}</th>
-            <td></td>
+            <th></th>
+            <th></th>
             <th>Total: {getTotalCartAmountQty()?.total}</th>
-            <td></td>
+            <th></th>
           </tr>
         </table>
 
@@ -140,6 +186,20 @@ const Cart = () => {
           <span>Total: {getTotalCartAmount()}</span>
         </div> */}
       </div>
+      <div className="check-delivery">
+        <div className="check-del">Check Delivery: </div>
+
+        <Dropdown
+          placeholder="Select your country"
+          options={countryOptions}
+          search
+          selection
+          data-testid="country-dropdown"
+        />
+      </div>
+
+      <CheckoutModal />
+
       <div className="button-wrapper">
         <Button
           circular={true}
@@ -153,7 +213,7 @@ const Cart = () => {
           </ButtonContent>
           <ButtonContent visible> Clear Cart </ButtonContent>
         </Button>
-        <Button
+        {/* <Button
           circular={true}
           size="large"
           className="checkout-btn"
@@ -164,7 +224,7 @@ const Cart = () => {
             <Icon name="long arrow alternate right" />
           </ButtonContent>
           <ButtonContent visible> CHECKOUT </ButtonContent>
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

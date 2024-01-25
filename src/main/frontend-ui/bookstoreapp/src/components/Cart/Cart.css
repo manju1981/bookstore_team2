@@ -40,7 +40,7 @@ html, body {
     width: 18px;
  }
  .button-wrapper{
-   margin: 5em;
+   /* margin: 5em; */
     float: right;
  
  }
@@ -59,4 +59,17 @@ html, body {
    display: flex;
    align-items: center;
     justify-content: space-evenly;
+    height: 7em;
+ }
+ .check-delivery{
+   display: flex;
+    align-items: center;
+    margin-left: 7em;
+    margin-top: 3em;
+
+ }
+ .check-del{
+   padding: 2em;
+    font-size: 16px;
+    font-weight: 600;
  }

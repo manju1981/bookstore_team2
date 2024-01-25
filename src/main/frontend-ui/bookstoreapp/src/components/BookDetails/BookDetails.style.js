@@ -27,4 +27,9 @@ export const ButtonContainer = {
   color: "white",
 };
 
+export const PriceDetails = {
+  color: "#6ca12a",
+  fontSize: "16px",
+};
+
 export const ToastMessage = {};
